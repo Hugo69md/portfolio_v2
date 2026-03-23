@@ -31,8 +31,8 @@ const useNeuralNetwork = (canvasRef, containerRef) => {
     resize();
     window.addEventListener('resize', resize);
 
-    // ── 200 nodes (100 + 100 more) ──
-    const NODE_COUNT = 200;
+    // ── 150 nodes, all interactive ──
+    const NODE_COUNT = 150;
     const nodes = [];
     for (let i = 0; i < NODE_COUNT; i++) {
       nodes.push({
@@ -221,15 +221,17 @@ const Landing = () => {
   const hoveredCount = hoveredCategory ? projects.filter(p => (p.categories || []).includes(hoveredCategory)).length : 0;
 
   return (
-    <div className="relative min-h-screen bg-[#050505] overflow-hidden flex flex-col">
+    <div
+      className="relative min-h-screen bg-[#050505] overflow-hidden flex flex-col"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
 
       {/* ── Neural Network Background Layer (covers everything except footer) ── */}
       <div
         ref={nnContainerRef}
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 pointer-events-none"
         style={{ bottom: '52px' }}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
       >
         <canvas ref={canvasRef} className="absolute inset-0" />
       </div>
@@ -346,8 +348,8 @@ const Landing = () => {
         })}
       </div>
 
-      {/* Spacer */}
-      <div className="h-6" />
+      {/* Spacer to prevent icon overlap with featured */}
+      <div className="h-14" />
 
       {/* Featured Projects Ticker */}
       <div className="relative z-10 mb-2">
