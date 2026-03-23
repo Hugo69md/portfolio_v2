@@ -9,21 +9,27 @@ const ICON_MAP = {
 };
 
 const ProjectCard = ({ project, index }) => {
-  const cat = categories.find(c => c.id === project.category);
-  const IconComp = cat ? ICON_MAP[cat.icon] : null;
+  const projectCats = (project.categories || []).map(catId => categories.find(c => c.id === catId)).filter(Boolean);
 
   return (
     <div
       className="group border border-gray-800/60 bg-black/40 backdrop-blur-sm hover:border-green-500/30 transition-all duration-500"
       style={{ animationDelay: `${index * 80}ms` }}
     >
-      {/* Header */}
+      {/* Header — show all category icons */}
       <div className="flex items-center justify-between px-5 py-3 border-b border-gray-800/40">
-        <div className="flex items-center gap-2">
-          {IconComp && <IconComp className="w-3.5 h-3.5 text-green-500/60" />}
-          <span className="font-mono text-[10px] text-green-500/50 tracking-wider uppercase">{cat?.name}</span>
+        <div className="flex items-center gap-2 flex-wrap">
+          {projectCats.map((cat) => {
+            const IconComp = ICON_MAP[cat.icon];
+            return (
+              <div key={cat.id} className="flex items-center gap-1">
+                {IconComp && <IconComp className="w-3.5 h-3.5 text-green-500/60" />}
+                <span className="font-mono text-[10px] text-green-500/50 tracking-wider uppercase">{cat.name}</span>
+              </div>
+            );
+          })}
         </div>
-        <span className="font-mono text-[10px] text-gray-600">{project.year}</span>
+        <span className="font-mono text-[10px] text-gray-600 flex-shrink-0 ml-2">{project.year}</span>
       </div>
 
       {/* Body */}
@@ -65,7 +71,7 @@ const Projects = () => {
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === 'all') return projects;
-    return projects.filter(p => p.category === activeFilter);
+    return projects.filter(p => (p.categories || []).includes(activeFilter));
   }, [activeFilter]);
 
   return (
@@ -128,7 +134,7 @@ const Projects = () => {
           </button>
           {categories.map((cat) => {
             const IconComp = ICON_MAP[cat.icon];
-            const count = projects.filter(p => p.category === cat.id).length;
+            const count = projects.filter(p => (p.categories || []).includes(cat.id)).length;
             return (
               <button
                 key={cat.id}

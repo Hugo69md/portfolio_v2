@@ -10,7 +10,6 @@ const ICON_MAP = {
 
 // ─── Neural Network Canvas ───────────────────────────────────────────────
 const useNeuralNetwork = (canvasRef, containerRef) => {
-  const nodesRef = useRef([]);
   const animFrameRef = useRef(null);
   const mouseRef = useRef({ x: -9999, y: -9999 });
 
@@ -39,9 +38,7 @@ const useNeuralNetwork = (canvasRef, containerRef) => {
       nodes.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        // base position for drifting
-        baseX: 0,
-        baseY: 0,
+        baseX: 0, baseY: 0,
         vx: (Math.random() - 0.5) * 0.4,
         vy: (Math.random() - 0.5) * 0.4,
         radius: Math.random() * 2 + 1,
@@ -50,18 +47,18 @@ const useNeuralNetwork = (canvasRef, containerRef) => {
       nodes[i].baseX = nodes[i].x;
       nodes[i].baseY = nodes[i].y;
     }
-    nodesRef.current = nodes;
 
     const CONNECTION_DIST = 130;
-    const MOUSE_ATTRACT_DIST = 200;
-    const MOUSE_GLOW_DIST = 220;
-    const ATTRACT_STRENGTH = 0.04;
+    // Reduced by 90%: 200→20, 220→22
+    const MOUSE_ATTRACT_DIST = 20;
+    const MOUSE_GLOW_DIST = 22;
+    // Speed reduced by 90%
+    const ATTRACT_STRENGTH = 0.004;
     const RETURN_STRENGTH = 0.008;
     const DAMPING = 0.95;
 
-    // Colors
-    const DARK_YELLOW = { r: 160, g: 140, b: 30 };      // muted dark yellow
-    const LIGHT_GREEN = { r: 74, g: 222, b: 128 };       // #4ade80
+    const DARK_YELLOW = { r: 160, g: 140, b: 30 };
+    const LIGHT_GREEN = { r: 74, g: 222, b: 128 };
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
@@ -76,12 +73,10 @@ const useNeuralNetwork = (canvasRef, containerRef) => {
         const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
 
         if (mouseOnCanvas && distMouse < MOUSE_ATTRACT_DIST) {
-          // Attract toward mouse
           const force = (1 - distMouse / MOUSE_ATTRACT_DIST) * ATTRACT_STRENGTH;
           node.vx += dxMouse * force;
           node.vy += dyMouse * force;
         } else {
-          // Gently drift back toward base + floating
           const t = Date.now() * 0.0005 + node.phase;
           const floatX = Math.sin(t) * 30;
           const floatY = Math.cos(t * 0.7) * 20;
@@ -96,7 +91,6 @@ const useNeuralNetwork = (canvasRef, containerRef) => {
         node.x += node.vx;
         node.y += node.vy;
 
-        // Soft boundary
         if (node.x < 10) node.vx += 0.1;
         if (node.x > width - 10) node.vx -= 0.1;
         if (node.y < 10) node.vy += 0.1;
@@ -110,7 +104,6 @@ const useNeuralNetwork = (canvasRef, containerRef) => {
           const dy = nodes[i].y - nodes[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < CONNECTION_DIST) {
-            // Check if either node is near mouse
             const d1 = Math.sqrt((nodes[i].x - mx) ** 2 + (nodes[i].y - my) ** 2);
             const d2 = Math.sqrt((nodes[j].x - mx) ** 2 + (nodes[j].y - my) ** 2);
             const nearMouse = mouseOnCanvas && (d1 < MOUSE_GLOW_DIST || d2 < MOUSE_GLOW_DIST);
@@ -135,7 +128,6 @@ const useNeuralNetwork = (canvasRef, containerRef) => {
         const nearMouse = mouseOnCanvas && distM < MOUSE_GLOW_DIST;
         const proximity = nearMouse ? 1 - distM / MOUSE_GLOW_DIST : 0;
 
-        // Interpolate color: dark yellow → green based on proximity
         const r = DARK_YELLOW.r + (LIGHT_GREEN.r - DARK_YELLOW.r) * proximity;
         const g = DARK_YELLOW.g + (LIGHT_GREEN.g - DARK_YELLOW.g) * proximity;
         const b = DARK_YELLOW.b + (LIGHT_GREEN.b - DARK_YELLOW.b) * proximity;
@@ -143,7 +135,7 @@ const useNeuralNetwork = (canvasRef, containerRef) => {
         const nodeAlpha = 0.5 + proximity * 0.4;
         const nodeRadius = node.radius * (1 + proximity * 0.6);
 
-        // Glow (gradient allowed here per user)
+        // Glow (gradient allowed only here)
         if (nearMouse && proximity > 0.2) {
           const glowRadius = nodeRadius * (4 + proximity * 4);
           const glow = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, glowRadius);
@@ -155,7 +147,6 @@ const useNeuralNetwork = (canvasRef, containerRef) => {
           ctx.fill();
         }
 
-        // Core dot
         ctx.beginPath();
         ctx.arc(node.x, node.y, nodeRadius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${nodeAlpha})`;
@@ -176,11 +167,18 @@ const useNeuralNetwork = (canvasRef, containerRef) => {
   return mouseRef;
 };
 
+// Helper: get all category icons for a project's categories
+const getCategoryIcons = (project) => {
+  return (project.categories || []).map(catId => {
+    const cat = categories.find(c => c.id === catId);
+    return cat ? { ...cat, IconComp: ICON_MAP[cat.icon] } : null;
+  }).filter(Boolean);
+};
+
 // ─── Landing Page ────────────────────────────────────────────────────────
 const Landing = () => {
   const navigate = useNavigate();
   const canvasRef = useRef(null);
-  const pageRef = useRef(null);
   const artifactRef = useRef(null);
   const [artifactSize, setArtifactSize] = useState({ width: 600, height: 400 });
   const [hoveredCategory, setHoveredCategory] = useState(null);
@@ -197,17 +195,13 @@ const Landing = () => {
     return () => window.removeEventListener('resize', update);
   }, []);
 
-  // Neural network lives in the middle zone
   const nnContainerRef = useRef(null);
   const mouseRef = useNeuralNetwork(canvasRef, nnContainerRef);
 
   const handleMouseMove = useCallback((e) => {
     const rect = nnContainerRef.current?.getBoundingClientRect();
     if (rect) {
-      mouseRef.current = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
-      };
+      mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
     }
   }, [mouseRef]);
 
@@ -223,8 +217,12 @@ const Landing = () => {
   const centerX = artifactSize.width / 2;
   const centerY = artifactSize.height / 2;
 
+  const isHovering = hoveredCategory !== null;
+  const hoveredCatObj = hoveredCategory ? categories.find(c => c.id === hoveredCategory) : null;
+  const hoveredCount = hoveredCategory ? projects.filter(p => (p.categories || []).includes(hoveredCategory)).length : 0;
+
   return (
-    <div ref={pageRef} className="relative min-h-screen bg-[#050505] overflow-hidden flex flex-col">
+    <div className="relative min-h-screen bg-[#050505] overflow-hidden flex flex-col">
 
       {/* Navigation */}
       <nav className="relative z-10 flex items-center justify-between px-8 py-5">
@@ -265,43 +263,36 @@ const Landing = () => {
       <div
         ref={nnContainerRef}
         className="relative z-10 flex-1"
-        style={{ minHeight: '300px' }}
+        style={{ minHeight: '320px' }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
         {/* Canvas for neural network */}
         <canvas ref={canvasRef} className="absolute inset-0 z-0" />
 
-        {/* Icon Artifact Layer */}
+        {/* Icon Artifact Layer — NO orbit rings */}
         <div ref={artifactRef} className="absolute inset-0 z-10 pointer-events-none">
-          {/* Orbit rings */}
-          <div
-            className="absolute border border-green-500/8 rounded-full"
-            style={{
-              left: '50%', top: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: artifactRadius * 2 + 20,
-              height: artifactRadius * 2 + 20
-            }}
-          />
-          <div
-            className="absolute border border-green-500/[0.03] rounded-full"
-            style={{
-              left: '50%', top: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: artifactRadius * 2.5,
-              height: artifactRadius * 2.5
-            }}
-          />
 
-          {/* Center label */}
+          {/* Center label — glows only when hovering a category */}
           <div className="absolute text-center" style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
-            <div className="font-mono text-xs text-green-500/40 tracking-[0.3em] uppercase mb-1">
-              {hoveredCategory ? categories.find(c => c.id === hoveredCategory)?.name : 'Explore'}
+            <div
+              className="font-mono text-xs tracking-[0.3em] uppercase mb-1 transition-all duration-300"
+              style={{
+                color: isHovering ? '#4ade80' : 'rgba(34,197,94,0.4)',
+                textShadow: isHovering ? '0 0 12px rgba(74,222,128,0.5), 0 0 24px rgba(74,222,128,0.2)' : 'none'
+              }}
+            >
+              {isHovering ? hoveredCatObj?.name : 'Explore'}
             </div>
-            <div className="font-mono text-[10px] text-gray-600">
-              {hoveredCategory
-                ? `${projects.filter(p => p.category === hoveredCategory).length} projects`
+            <div
+              className="font-mono text-[10px] transition-all duration-300"
+              style={{
+                color: isHovering ? '#9ca3af' : '#4b5563',
+                textShadow: isHovering ? '0 0 8px rgba(74,222,128,0.15)' : 'none'
+              }}
+            >
+              {isHovering
+                ? `${hoveredCount} project${hoveredCount !== 1 ? 's' : ''}`
                 : `${projects.length} total projects`
               }
             </div>
@@ -330,16 +321,20 @@ const Landing = () => {
                 }}
                 title={cat.name}
               >
-                <div className={`relative flex items-center justify-center w-14 h-14 rounded-lg border transition-colors duration-300 ${
+                <div className={`relative flex items-center justify-center w-12 h-12 transition-colors duration-300 ${
                   isHovered
-                    ? 'border-green-400 bg-green-500/10 shadow-[0_0_20px_rgba(34,197,94,0.25)]'
-                    : 'border-gray-700/60 bg-[#0a0a0a]/80 hover:border-green-500/40'
-                }`}>
+                    ? 'text-green-300'
+                    : 'text-green-500/60 hover:text-green-400/80'
+                }`}
+                  style={{
+                    filter: isHovered ? 'drop-shadow(0 0 8px rgba(74,222,128,0.4))' : 'none'
+                  }}
+                >
                   {IconComponent && (
-                    <IconComponent className={`w-6 h-6 transition-colors duration-300 ${isHovered ? 'text-green-300' : 'text-green-500/70'}`} />
+                    <IconComponent className="w-7 h-7" />
                   )}
                 </div>
-                <span className={`absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-mono tracking-wider transition-opacity duration-300 ${
+                <span className={`absolute top-full mt-1 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-mono tracking-wider transition-opacity duration-300 ${
                   isHovered ? 'opacity-100 text-green-400' : 'opacity-0 text-green-500/50'
                 }`}>
                   {cat.name}
@@ -350,6 +345,9 @@ const Landing = () => {
         </div>
       </div>
 
+      {/* Spacer to prevent icon overlap */}
+      <div className="h-6" />
+
       {/* Featured Projects Ticker */}
       <div className="relative z-10 mb-2">
         <div className="flex items-center gap-2 px-8 mb-3">
@@ -359,18 +357,29 @@ const Landing = () => {
         </div>
         <div className="flex gap-4 px-8 overflow-x-auto pb-2 scrollbar-hide">
           {projects.filter(p => p.featured).map((project) => {
-            const IconComp = ICON_MAP[categories.find(c => c.id === project.category)?.icon];
+            const catIcons = getCategoryIcons(project);
             return (
               <button
                 key={project.id}
-                onClick={() => navigate(`/projects?category=${project.category}`)}
-                className="flex-shrink-0 group flex items-center gap-3 px-4 py-3 border border-gray-800/50 hover:border-green-500/30 bg-[#0a0a0a]/60 backdrop-blur-sm transition-colors duration-300"
+                onClick={() => navigate(`/projects?category=${(project.categories || [])[0]}`)}
+                className="flex-shrink-0 group flex items-start gap-3 px-4 py-3 border border-gray-800/50 hover:border-green-500/30 bg-[#0a0a0a]/60 backdrop-blur-sm transition-colors duration-300 text-left max-w-[300px]"
               >
-                {IconComp && <IconComp className="w-4 h-4 text-green-500/40 group-hover:text-green-400 transition-colors" />}
-                <span className="font-mono text-xs text-gray-500 group-hover:text-gray-300 transition-colors whitespace-nowrap">
-                  {project.title}
-                </span>
-                <ArrowUpRight className="w-3 h-3 text-gray-700 group-hover:text-green-400 transition-colors" />
+                <div className="flex items-center gap-1 mt-0.5 flex-shrink-0">
+                  {catIcons.map(({ id, IconComp }) => (
+                    IconComp && <IconComp key={id} className="w-3.5 h-3.5 text-green-500/40 group-hover:text-green-400 transition-colors" />
+                  ))}
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-mono text-xs text-gray-400 group-hover:text-gray-200 transition-colors whitespace-nowrap truncate">
+                      {project.title}
+                    </span>
+                    <ArrowUpRight className="w-3 h-3 text-gray-700 group-hover:text-green-400 transition-colors flex-shrink-0" />
+                  </div>
+                  <p className="font-mono text-[10px] text-gray-600 mt-1 leading-relaxed line-clamp-2">
+                    {project.shortDesc}
+                  </p>
+                </div>
               </button>
             );
           })}
@@ -407,6 +416,7 @@ const Landing = () => {
       <style>{`
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
       `}</style>
     </div>
   );

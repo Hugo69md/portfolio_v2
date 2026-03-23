@@ -73,7 +73,7 @@ const Contact = () => {
         >
           Get in Touch
         </h1>
-        <p className="font-mono text-xs text-gray-600 mb-12">
+        <p className="font-mono text-base text-white mb-12 leading-relaxed">
           Have a project in mind? Let's discuss how data can drive your decisions.
         </p>
 

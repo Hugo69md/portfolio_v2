@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, MapPin, Mail, Github, Linkedin, Twitter, Briefcase, GraduationCap, ChevronRight } from 'lucide-react';
-import { Progress } from '@/components/ui/progress';
 import { profileData } from '@/data/mock';
 
 const Profile = () => {
@@ -76,33 +75,7 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Skills */}
-          <div>
-            <div className="flex items-center gap-2 mb-8">
-              <div className="h-px flex-1 bg-green-500/10" />
-              <span className="font-mono text-[10px] text-green-500/40 tracking-[0.3em] uppercase">Technical Skills</span>
-              <div className="h-px flex-1 bg-green-500/10" />
-            </div>
-            <div className="space-y-5">
-              {profileData.skills.map((skill) => (
-                <div key={skill.name}>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="font-mono text-xs text-gray-400">{skill.name}</span>
-                    <span className="font-mono text-[10px] text-gray-600">{skill.level}%</span>
-                  </div>
-                  <div className="h-1 bg-gray-800/60 rounded-full overflow-hidden">
-                    <div
-                      className="h-full rounded-full bg-green-500/70 transition-all duration-1000 ease-out"
-                      style={{ width: `${skill.level}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-16">
+        <div className="space-y-16">
             {/* Experience */}
             <div>
               <div className="flex items-center gap-2 mb-8">
@@ -144,7 +117,6 @@ const Profile = () => {
                 ))}
               </div>
             </div>
-          </div>
         </div>
 
         {/* CTA */}
