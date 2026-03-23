@@ -1,10 +1,11 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { BarChart3, TrendingUp, Globe, Plug, FileSpreadsheet, Cog, Code, Brain, ArrowLeft, ExternalLink, Filter } from 'lucide-react';
+import { BarChart3, TrendingUp, Plug, FileSpreadsheet, Server, Brain, ArrowLeft, ExternalLink, Filter } from 'lucide-react';
+import { Spider, PythonLogo } from '@/components/CustomIcons';
 import { projects, categories } from '@/data/mock';
 
 const ICON_MAP = {
-  BarChart3, TrendingUp, Globe, Plug, FileSpreadsheet, Cog, Code, Brain
+  BarChart3, TrendingUp, Plug, FileSpreadsheet, Server, Brain, Spider, PythonLogo
 };
 
 const ProjectCard = ({ project, index }) => {

@@ -64,13 +64,13 @@ export const profileData = {
 
 export const categories = [
   { id: "data-viz", name: "Data Visualization", icon: "BarChart3" },
-  { id: "statistics", name: "Statistics", icon: "TrendingUp" },
-  { id: "scraping", name: "Scraping", icon: "Globe" },
+  { id: "statistics", name: "Predictive Models", icon: "TrendingUp" },
+  { id: "scraping", name: "Scraping", icon: "Spider" },
   { id: "api", name: "API", icon: "Plug" },
   { id: "excel", name: "Excel", icon: "FileSpreadsheet" },
-  { id: "automation", name: "Automation", icon: "Cog" },
-  { id: "python", name: "Python", icon: "Code" },
-  { id: "predictive", name: "Predictive Models", icon: "Brain" }
+  { id: "automation", name: "Automation", icon: "Server" },
+  { id: "python", name: "Python", icon: "PythonLogo" },
+  { id: "predictive", name: "IA", icon: "Brain" }
 ];
 
 export const projects = [
