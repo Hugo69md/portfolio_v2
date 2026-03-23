@@ -8,7 +8,7 @@ const ICON_MAP = {
   BarChart3, TrendingUp, Plug, FileSpreadsheet, Server, Brain, Spider, PythonLogo
 };
 
-// ─── Neural Network Canvas ───────────────────────────────────────────────
+// ─── Neural Network Canvas (Full-page background) ───────────────────────
 const useNeuralNetwork = (canvasRef, containerRef) => {
   const animFrameRef = useRef(null);
   const mouseRef = useRef({ x: -9999, y: -9999 });
@@ -31,8 +31,8 @@ const useNeuralNetwork = (canvasRef, containerRef) => {
     resize();
     window.addEventListener('resize', resize);
 
-    // ── Create 100 nodes ──
-    const NODE_COUNT = 100;
+    // ── 200 nodes (100 + 100 more) ──
+    const NODE_COUNT = 200;
     const nodes = [];
     for (let i = 0; i < NODE_COUNT; i++) {
       nodes.push({
@@ -48,11 +48,10 @@ const useNeuralNetwork = (canvasRef, containerRef) => {
       nodes[i].baseY = nodes[i].y;
     }
 
-    const CONNECTION_DIST = 130;
-    // Reduced by 90%: 200→20, 220→22
-    const MOUSE_ATTRACT_DIST = 20;
-    const MOUSE_GLOW_DIST = 22;
-    // Speed reduced by 90%
+    const CONNECTION_DIST = 120;
+    // Previous was 20/22, up by 60%: 20*1.6=32, 22*1.6≈35
+    const MOUSE_ATTRACT_DIST = 32;
+    const MOUSE_GLOW_DIST = 35;
     const ATTRACT_STRENGTH = 0.004;
     const RETURN_STRENGTH = 0.008;
     const DAMPING = 0.95;
@@ -135,7 +134,7 @@ const useNeuralNetwork = (canvasRef, containerRef) => {
         const nodeAlpha = 0.5 + proximity * 0.4;
         const nodeRadius = node.radius * (1 + proximity * 0.6);
 
-        // Glow (gradient allowed only here)
+        // Glow (gradient allowed only for this)
         if (nearMouse && proximity > 0.2) {
           const glowRadius = nodeRadius * (4 + proximity * 4);
           const glow = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, glowRadius);
@@ -167,7 +166,7 @@ const useNeuralNetwork = (canvasRef, containerRef) => {
   return mouseRef;
 };
 
-// Helper: get all category icons for a project's categories
+// Helper: get all category icons for a project
 const getCategoryIcons = (project) => {
   return (project.categories || []).map(catId => {
     const cat = categories.find(c => c.id === catId);
@@ -179,6 +178,7 @@ const getCategoryIcons = (project) => {
 const Landing = () => {
   const navigate = useNavigate();
   const canvasRef = useRef(null);
+  const nnContainerRef = useRef(null);
   const artifactRef = useRef(null);
   const [artifactSize, setArtifactSize] = useState({ width: 600, height: 400 });
   const [hoveredCategory, setHoveredCategory] = useState(null);
@@ -195,7 +195,6 @@ const Landing = () => {
     return () => window.removeEventListener('resize', update);
   }, []);
 
-  const nnContainerRef = useRef(null);
   const mouseRef = useNeuralNetwork(canvasRef, nnContainerRef);
 
   const handleMouseMove = useCallback((e) => {
@@ -223,6 +222,19 @@ const Landing = () => {
 
   return (
     <div className="relative min-h-screen bg-[#050505] overflow-hidden flex flex-col">
+
+      {/* ── Neural Network Background Layer (covers everything except footer) ── */}
+      <div
+        ref={nnContainerRef}
+        className="absolute inset-0 z-0"
+        style={{ bottom: '52px' }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        <canvas ref={canvasRef} className="absolute inset-0" />
+      </div>
+
+      {/* ═══════════════ Content Layer (z-10, above canvas) ═══════════════ */}
 
       {/* Navigation */}
       <nav className="relative z-10 flex items-center justify-between px-8 py-5">
@@ -259,93 +271,82 @@ const Landing = () => {
         </h1>
       </div>
 
-      {/* ── Neural Network + Artifact Zone ── */}
-      <div
-        ref={nnContainerRef}
-        className="relative z-10 flex-1"
-        style={{ minHeight: '320px' }}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-      >
-        {/* Canvas for neural network */}
-        <canvas ref={canvasRef} className="absolute inset-0 z-0" />
+      {/* ── Artifact Icon Zone ── */}
+      <div ref={artifactRef} className="relative z-10 flex-1" style={{ minHeight: '320px' }}>
 
-        {/* Icon Artifact Layer — NO orbit rings */}
-        <div ref={artifactRef} className="absolute inset-0 z-10 pointer-events-none">
-
-          {/* Center label — glows only when hovering a category */}
-          <div className="absolute text-center" style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
-            <div
-              className="font-mono text-xs tracking-[0.3em] uppercase mb-1 transition-all duration-300"
-              style={{
-                color: isHovering ? '#4ade80' : 'rgba(34,197,94,0.4)',
-                textShadow: isHovering ? '0 0 12px rgba(74,222,128,0.5), 0 0 24px rgba(74,222,128,0.2)' : 'none'
-              }}
-            >
-              {isHovering ? hoveredCatObj?.name : 'Explore'}
-            </div>
-            <div
-              className="font-mono text-[10px] transition-all duration-300"
-              style={{
-                color: isHovering ? '#9ca3af' : '#4b5563',
-                textShadow: isHovering ? '0 0 8px rgba(74,222,128,0.15)' : 'none'
-              }}
-            >
-              {isHovering
-                ? `${hoveredCount} project${hoveredCount !== 1 ? 's' : ''}`
-                : `${projects.length} total projects`
-              }
-            </div>
+        {/* Center label — glows only when hovering a category */}
+        <div className="absolute text-center pointer-events-none" style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
+          <div
+            className="font-mono text-xs tracking-[0.3em] uppercase mb-1 transition-all duration-300"
+            style={{
+              color: isHovering ? '#4ade80' : 'rgba(34,197,94,0.4)',
+              textShadow: isHovering ? '0 0 12px rgba(74,222,128,0.5), 0 0 24px rgba(74,222,128,0.2)' : 'none'
+            }}
+          >
+            {isHovering ? hoveredCatObj?.name : 'Explore'}
           </div>
-
-          {/* Icon Buttons */}
-          {categories.map((cat, idx) => {
-            const angle = (idx / categories.length) * Math.PI * 2 - Math.PI / 2;
-            const IconComponent = ICON_MAP[cat.icon];
-            const ix = centerX + Math.cos(angle) * artifactRadius;
-            const iy = centerY + Math.sin(angle) * artifactRadius;
-            const isHovered = hoveredCategory === cat.id;
-
-            return (
-              <button
-                key={cat.id}
-                onClick={() => handleIconClick(cat.id)}
-                onMouseEnter={() => setHoveredCategory(cat.id)}
-                onMouseLeave={() => setHoveredCategory(null)}
-                className="absolute pointer-events-auto group"
-                style={{
-                  left: `${ix}px`,
-                  top: `${iy}px`,
-                  transform: `translate(-50%, -50%) scale(${isHovered ? 1.15 : 1})`,
-                  transition: 'transform 0.3s ease'
-                }}
-                title={cat.name}
-              >
-                <div className={`relative flex items-center justify-center w-12 h-12 transition-colors duration-300 ${
-                  isHovered
-                    ? 'text-green-300'
-                    : 'text-green-500/60 hover:text-green-400/80'
-                }`}
-                  style={{
-                    filter: isHovered ? 'drop-shadow(0 0 8px rgba(74,222,128,0.4))' : 'none'
-                  }}
-                >
-                  {IconComponent && (
-                    <IconComponent className="w-7 h-7" />
-                  )}
-                </div>
-                <span className={`absolute top-full mt-1 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-mono tracking-wider transition-opacity duration-300 ${
-                  isHovered ? 'opacity-100 text-green-400' : 'opacity-0 text-green-500/50'
-                }`}>
-                  {cat.name}
-                </span>
-              </button>
-            );
-          })}
+          <div
+            className="font-mono text-[10px] transition-all duration-300"
+            style={{
+              color: isHovering ? '#9ca3af' : '#4b5563',
+              textShadow: isHovering ? '0 0 8px rgba(74,222,128,0.15)' : 'none'
+            }}
+          >
+            {isHovering
+              ? `${hoveredCount} project${hoveredCount !== 1 ? 's' : ''}`
+              : `${projects.length} total projects`
+            }
+          </div>
         </div>
+
+        {/* Icon Buttons */}
+        {categories.map((cat, idx) => {
+          const angle = (idx / categories.length) * Math.PI * 2 - Math.PI / 2;
+          const IconComponent = ICON_MAP[cat.icon];
+          const ix = centerX + Math.cos(angle) * artifactRadius;
+          const iy = centerY + Math.sin(angle) * artifactRadius;
+          const isHovered = hoveredCategory === cat.id;
+
+          return (
+            <button
+              key={cat.id}
+              onClick={() => handleIconClick(cat.id)}
+              onMouseEnter={() => setHoveredCategory(cat.id)}
+              onMouseLeave={() => setHoveredCategory(null)}
+              className="absolute group"
+              style={{
+                left: `${ix}px`,
+                top: `${iy}px`,
+                transform: `translate(-50%, -50%) scale(${isHovered ? 1.15 : 1})`,
+                transition: 'transform 0.3s ease'
+              }}
+              title={cat.name}
+            >
+              {/* Square contour — visible only on hover, 50% more opaque than NN */}
+              <div className={`relative flex items-center justify-center w-14 h-14 rounded-lg border transition-all duration-300 ${
+                isHovered
+                  ? 'border-green-500/40 bg-[#050505]/75 text-green-300'
+                  : 'border-transparent bg-transparent text-green-500/60 hover:border-gray-700/40 hover:bg-[#050505]/75 hover:text-green-400/80'
+              }`}
+                style={{
+                  filter: isHovered ? 'drop-shadow(0 0 8px rgba(74,222,128,0.4))' : 'none'
+                }}
+              >
+                {IconComponent && (
+                  <IconComponent className="w-7 h-7" />
+                )}
+              </div>
+              <span className={`absolute top-full mt-1 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-mono tracking-wider transition-opacity duration-300 ${
+                isHovered ? 'opacity-100 text-green-400' : 'opacity-0 text-green-500/50'
+              }`}>
+                {cat.name}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
-      {/* Spacer to prevent icon overlap */}
+      {/* Spacer */}
       <div className="h-6" />
 
       {/* Featured Projects Ticker */}
@@ -386,8 +387,8 @@ const Landing = () => {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="relative z-10 border-t border-gray-800/50 px-8 py-4">
+      {/* Footer — sits above the neural network, has its own solid bg */}
+      <footer className="relative z-10 border-t border-gray-800/50 px-8 py-4 bg-[#050505]">
         <div className="flex items-center justify-between">
           <div>
             <div className="font-mono text-sm text-gray-400 tracking-wider">{profileData.name}</div>

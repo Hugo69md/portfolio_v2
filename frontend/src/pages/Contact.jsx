@@ -111,15 +111,15 @@ const Contact = () => {
             <div>
               <div className="font-mono text-[10px] text-green-500/40 tracking-wider uppercase mb-3">Connect</div>
               <div className="flex items-center gap-4">
-                <a href={profileData.social.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 hover:text-green-400 transition-colors">
+                <a href={profileData.social.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors">
                   <Github className="w-4 h-4" />
                   <span className="font-mono text-xs">GitHub</span>
                 </a>
-                <a href={profileData.social.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 hover:text-green-400 transition-colors">
+                <a href={profileData.social.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors">
                   <Linkedin className="w-4 h-4" />
                   <span className="font-mono text-xs">LinkedIn</span>
                 </a>
-                <a href={profileData.social.twitter} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 hover:text-green-400 transition-colors">
+                <a href={profileData.social.twitter} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors">
                   <Twitter className="w-4 h-4" />
                   <span className="font-mono text-xs">Twitter</span>
                 </a>
@@ -127,12 +127,12 @@ const Contact = () => {
             </div>
 
             {/* Terminal-style decoration */}
-            <div className="border border-gray-800/40 bg-black/30 p-4 font-mono text-[10px] text-gray-700">
-              <div className="text-green-500/30 mb-1">$ whoami</div>
-              <div className="text-gray-500 mb-2">{profileData.name.toLowerCase().replace(' ', '.')}</div>
-              <div className="text-green-500/30 mb-1">$ cat status.txt</div>
-              <div className="text-gray-500 mb-2">Available for freelance & consulting</div>
-              <div className="text-green-500/30">$ _<span className="animate-pulse">|</span></div>
+            <div className="border border-gray-800/40 bg-black/30 p-4 font-mono text-[10px]">
+              <div className="text-green-500/50 mb-1">$ whoami</div>
+              <div className="text-gray-400 mb-2">{profileData.name.toLowerCase().replace(' ', '.')}</div>
+              <div className="text-green-500/50 mb-1">$ cat status.txt</div>
+              <div className="text-gray-400 mb-2">Available for freelance & consulting</div>
+              <div className="text-green-500/50">$ _<span className="animate-pulse">|</span></div>
             </div>
           </div>
 
