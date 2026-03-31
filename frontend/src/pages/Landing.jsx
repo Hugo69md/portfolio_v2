@@ -259,7 +259,7 @@ const Landing = () => {
       {/* Main Title */}
       <div className="relative z-10 text-center mt-2 mb-1">
         <h1
-          className="text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none uppercase"
+          className="text-7xl md:text-8xl lg:text-[10rem] tracking-tight leading-none uppercase"
           style={{
             fontFamily: "'Alte Haas Grotesk Bold', 'Arial Black', sans-serif",
             fontWeight: 900,
@@ -377,7 +377,7 @@ const Landing = () => {
                     <span className="font-mono text-xs text-gray-400 group-hover:text-gray-200 transition-colors whitespace-nowrap truncate">
                       {project.title}
                     </span>
-                    <ArrowUpRight className="w-3 h-3 text-gray-700 group-hover:text-green-400 transition-colors flex-shrink-0" />
+                    <ArrowUpRight className="w-3 h-3 text-gray-700 flex-shrink-0 transition-colors group-hover:text-[#4db9eb]" />
                   </div>
                   <p className="font-mono text-[10px] text-gray-600 mt-1 leading-relaxed line-clamp-2">
                     {project.shortDesc}

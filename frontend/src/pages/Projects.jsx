@@ -56,7 +56,7 @@ const ProjectCard = ({ project, index, onClick }) => {
           <span className="text-[10px] font-mono text-green-500/50 tracking-wider uppercase">Featured</span>
         )}
         {!project.featured && <span />}
-        <button className="flex items-center gap-1.5 text-[10px] font-mono text-gray-600 group-hover:text-green-400 transition-colors">
+        <button className="flex items-center gap-1.5 text-[10px] font-mono text-gray-600 group-hover:text-[#4db9eb] transition-colors">
           View Details <ExternalLink className="w-3 h-3" />
         </button>
       </div>
@@ -127,7 +127,7 @@ const Projects = () => {
             onClick={() => setActiveFilter('all')}
             className={`px-3 py-1.5 text-[11px] font-mono tracking-wider border transition-all duration-300 flex-shrink-0 ${
               activeFilter === 'all'
-                ? 'border-green-500/40 text-green-400 bg-green-500/5'
+                ? 'border-[#4db9eb]/40 text-[#4db9eb] bg-[#4db9eb]/5'
                 : 'border-gray-800/50 text-gray-600 hover:text-gray-400 hover:border-gray-700'
             }`}
           >
@@ -142,7 +142,7 @@ const Projects = () => {
                 onClick={() => setActiveFilter(cat.id)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-mono tracking-wider border transition-all duration-300 flex-shrink-0 ${
                   activeFilter === cat.id
-                    ? 'border-green-500/40 text-green-400 bg-green-500/5'
+                    ? 'border-[#4db9eb]/40 text-[#4db9eb] bg-[#4db9eb]/5'
                     : 'border-gray-800/50 text-gray-600 hover:text-gray-400 hover:border-gray-700'
                 }`}
               >

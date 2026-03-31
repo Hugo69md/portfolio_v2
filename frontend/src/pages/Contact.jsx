@@ -48,7 +48,7 @@ const Contact = () => {
 
       <div className="max-w-5xl mx-auto px-8 py-12">
         <h1
-          className="text-6xl md:text-8xl tracking-tight mb-3"
+          className="text-4xl md:text-5xl tracking-tight mb-3"
           style={{
             fontFamily: "'Alte Haas Grotesk Bold', 'Arial Black', sans-serif",
             fontWeight: 900,
