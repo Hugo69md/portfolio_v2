@@ -39,7 +39,7 @@ const Profile = () => {
         {/* Profile Header */}
         <div className="mb-16">
           <h1
-            className="text-4xl md:text-6xl tracking-tight mb-3"
+            className="text-4xl md:text-5xl tracking-tight mb-3"
             style={{
               fontFamily: "'Alte Haas Grotesk Bold', 'Arial Black', sans-serif",
               fontWeight: 900,

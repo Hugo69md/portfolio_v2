@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BarChart3, TrendingUp, Plug, FileSpreadsheet, Server, Brain, Github, Linkedin, Twitter, Mail, ArrowUpRight } from 'lucide-react';
+import { BarChart3, TrendingUp, Plug, FileSpreadsheet, Server, Brain, Github, Linkedin, Phone, Mail, ArrowUpRight } from 'lucide-react';
 import { Spider, PythonLogo } from '@/components/CustomIcons';
 import { profileData, categories, projects } from '@/data/mock';
 
@@ -259,7 +259,7 @@ const Landing = () => {
       {/* Main Title */}
       <div className="relative z-10 text-center mt-2 mb-1">
         <h1
-          className="text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none uppercase"
+          className="text-7xl md:text-8xl lg:text-[10rem] tracking-tight leading-none uppercase"
           style={{
             fontFamily: "'Alte Haas Grotesk Bold', 'Arial Black', sans-serif",
             fontWeight: 900,
@@ -377,7 +377,7 @@ const Landing = () => {
                     <span className="font-mono text-xs text-gray-400 group-hover:text-gray-200 transition-colors whitespace-nowrap truncate">
                       {project.title}
                     </span>
-                    <ArrowUpRight className="w-3 h-3 text-gray-700 group-hover:text-green-400 transition-colors flex-shrink-0" />
+                    <ArrowUpRight className="w-3 h-3 text-gray-700 flex-shrink-0 transition-colors group-hover:text-[#4db9eb]" />
                   </div>
                   <p className="font-mono text-[10px] text-gray-600 mt-1 leading-relaxed line-clamp-2">
                     {project.shortDesc}
@@ -403,11 +403,11 @@ const Landing = () => {
             <a href={profileData.social.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-green-400 transition-colors duration-300">
               <Linkedin className="w-4 h-4" />
             </a>
-            <a href={profileData.social.twitter} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-green-400 transition-colors duration-300">
-              <Twitter className="w-4 h-4" />
-            </a>
             <a href={`mailto:${profileData.email}`} className="text-gray-600 hover:text-green-400 transition-colors duration-300">
               <Mail className="w-4 h-4" />
+            </a>
+            <a href={`tel:${profileData.phone.replace(/\s/g, '')}`} className="text-gray-600 hover:text-green-400 transition-colors duration-300">
+              <Phone className="w-4 h-4" />
             </a>
           </div>
           <div className="font-mono text-[10px] text-gray-700">

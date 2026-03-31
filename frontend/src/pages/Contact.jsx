@@ -1,36 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Send, MapPin, Mail, Phone, Github, Linkedin, Twitter, CheckCircle } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { profileData, contactMessages } from '@/data/mock';
+import { ArrowLeft, MapPin, Mail, Phone, Github, Linkedin, Copy, Check } from 'lucide-react';
+import { profileData } from '@/data/mock';
 import { useToast } from '@/hooks/use-toast';
 
 const Contact = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-  const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [copiedField, setCopiedField] = useState(null);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
-      toast({ title: 'Error', description: 'Please fill in all required fields.', variant: 'destructive' });
-      return;
-    }
-    setSending(true);
-    // Mock: save to local array
-    setTimeout(() => {
-      contactMessages.push({
-        ...formData,
-        id: Date.now().toString(),
-        timestamp: new Date().toISOString()
-      });
-      setSending(false);
-      setSent(true);
-      toast({ title: 'Message sent!', description: 'Thank you for reaching out. I will get back to you soon.' });
-    }, 1200);
+  const copyToClipboard = (text, field) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopiedField(field);
+      toast({ title: 'Copied!', description: `${text} copied to clipboard.` });
+      setTimeout(() => setCopiedField(null), 2000);
+    });
   };
 
   return (
@@ -62,7 +46,7 @@ const Contact = () => {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-8 py-12">
+      <div className="max-w-5xl mx-auto px-8 py-12">
         <h1
           className="text-4xl md:text-5xl tracking-tight mb-3"
           style={{
@@ -73,144 +57,110 @@ const Contact = () => {
         >
           Get in Touch
         </h1>
-        <p className="font-mono text-base text-white mb-12 leading-relaxed">
+        <p className="font-mono text-base text-gray-500 tracking-[0.3em] uppercase mb-4 leading-relaxed">
           Have a project in mind? Let's discuss how data can drive your decisions.
         </p>
+        <div className="h-px bg-gray-800/50 mb-14" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-          {/* Contact Info */}
-          <div className="lg:col-span-2 space-y-8">
-            <div className="space-y-5">
-              <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-green-500/50 mt-0.5 flex-shrink-0" />
-                <div>
-                  <div className="font-mono text-[10px] text-green-500/40 tracking-wider uppercase mb-1">Location</div>
-                  <div className="text-sm text-gray-400">{profileData.location}</div>
-                </div>
+        {/* Contact Info + Terminal side by side */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-14">
+          {/* Left: Location, Email, Phone */}
+          <div className="space-y-7">
+            {/* Location */}
+            <div className="flex items-start gap-3">
+              <MapPin className="w-4 h-4 text-green-500/50 mt-0.5 flex-shrink-0" />
+              <div>
+                <div className="font-mono text-[10px] text-green-500/40 tracking-wider uppercase mb-1">Location</div>
+                <div className="text-sm text-gray-400">{profileData.location}</div>
               </div>
-              <div className="flex items-start gap-3">
-                <Mail className="w-4 h-4 text-green-500/50 mt-0.5 flex-shrink-0" />
-                <div>
-                  <div className="font-mono text-[10px] text-green-500/40 tracking-wider uppercase mb-1">Email</div>
+            </div>
+
+            {/* Email — click clipboard to copy */}
+            <div className="flex items-start gap-3">
+              <Mail className="w-4 h-4 text-green-500/50 mt-0.5 flex-shrink-0" />
+              <div>
+                <div className="font-mono text-[10px] text-green-500/40 tracking-wider uppercase mb-1">Email</div>
+                <div className="flex items-center gap-2">
                   <a href={`mailto:${profileData.email}`} className="text-sm text-gray-400 hover:text-green-400 transition-colors">
                     {profileData.email}
                   </a>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Phone className="w-4 h-4 text-green-500/50 mt-0.5 flex-shrink-0" />
-                <div>
-                  <div className="font-mono text-[10px] text-green-500/40 tracking-wider uppercase mb-1">Phone</div>
-                  <div className="text-sm text-gray-400">{profileData.phone}</div>
+                  <button
+                    onClick={() => copyToClipboard(profileData.email, 'email')}
+                    className="group"
+                    title="Copy to clipboard"
+                  >
+                    {copiedField === 'email' ? (
+                      <Check className="w-3.5 h-3.5 text-green-400" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5 text-gray-700 transition-colors" style={{ color: undefined }} onMouseEnter={(e) => e.currentTarget.style.color = '#4db9eb'} onMouseLeave={(e) => e.currentTarget.style.color = ''} />
+                    )}
+                  </button>
                 </div>
               </div>
             </div>
 
-            <div className="h-px bg-gray-800/50" />
-
-            <div>
-              <div className="font-mono text-[10px] text-green-500/40 tracking-wider uppercase mb-3">Connect</div>
-              <div className="flex items-center gap-4">
-                <a href={profileData.social.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors">
-                  <Github className="w-4 h-4" />
-                  <span className="font-mono text-xs">GitHub</span>
-                </a>
-                <a href={profileData.social.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors">
-                  <Linkedin className="w-4 h-4" />
-                  <span className="font-mono text-xs">LinkedIn</span>
-                </a>
-                <a href={profileData.social.twitter} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors">
-                  <Twitter className="w-4 h-4" />
-                  <span className="font-mono text-xs">Twitter</span>
-                </a>
+            {/* Phone — click clipboard to copy */}
+            <div className="flex items-start gap-3">
+              <Phone className="w-4 h-4 text-green-500/50 mt-0.5 flex-shrink-0" />
+              <div>
+                <div className="font-mono text-[10px] text-green-500/40 tracking-wider uppercase mb-1">Phone</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-gray-400 hover:text-green-400 transition-colors cursor-default">
+                    {profileData.phone}
+                  </span>
+                  <button
+                    onClick={() => copyToClipboard(profileData.phone, 'phone')}
+                    className="group"
+                    title="Copy to clipboard"
+                  >
+                    {copiedField === 'phone' ? (
+                      <Check className="w-3.5 h-3.5 text-green-400" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5 text-gray-700 transition-colors" onMouseEnter={(e) => e.currentTarget.style.color = '#4db9eb'} onMouseLeave={(e) => e.currentTarget.style.color = ''} />
+                    )}
+                  </button>
+                </div>
               </div>
-            </div>
-
-            {/* Terminal-style decoration */}
-            <div className="border border-gray-800/40 bg-black/30 p-4 font-mono text-[10px]">
-              <div className="text-green-500/50 mb-1">$ whoami</div>
-              <div className="text-gray-400 mb-2">{profileData.name.toLowerCase().replace(' ', '.')}</div>
-              <div className="text-green-500/50 mb-1">$ cat status.txt</div>
-              <div className="text-gray-400 mb-2">Available for freelance & consulting</div>
-              <div className="text-green-500/50">$ _<span className="animate-pulse">|</span></div>
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="lg:col-span-3">
-            {sent ? (
-              <div className="flex flex-col items-center justify-center py-20 text-center">
-                <CheckCircle className="w-12 h-12 text-green-400 mb-4" />
-                <h3 className="font-mono text-lg text-gray-300 mb-2">Message Sent</h3>
-                <p className="text-sm text-gray-500 mb-6">Thank you for reaching out. I'll respond within 24 hours.</p>
-                <button
-                  onClick={() => { setSent(false); setFormData({ name: '', email: '', subject: '', message: '' }); }}
-                  className="font-mono text-xs text-green-400/60 hover:text-green-400 transition-colors"
-                >
-                  Send another message
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="font-mono text-[10px] text-green-500/40 tracking-wider uppercase mb-2 block">Name *</label>
-                    <Input
-                      value={formData.name}
-                      onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                      placeholder="Your name"
-                      className="bg-black/40 border-gray-800 text-gray-300 font-mono text-sm placeholder:text-gray-700 focus:border-green-500/40 focus:ring-green-500/20"
-                    />
-                  </div>
-                  <div>
-                    <label className="font-mono text-[10px] text-green-500/40 tracking-wider uppercase mb-2 block">Email *</label>
-                    <Input
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                      placeholder="your@email.com"
-                      className="bg-black/40 border-gray-800 text-gray-300 font-mono text-sm placeholder:text-gray-700 focus:border-green-500/40 focus:ring-green-500/20"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="font-mono text-[10px] text-green-500/40 tracking-wider uppercase mb-2 block">Subject</label>
-                  <Input
-                    value={formData.subject}
-                    onChange={(e) => setFormData(prev => ({ ...prev, subject: e.target.value }))}
-                    placeholder="Project inquiry"
-                    className="bg-black/40 border-gray-800 text-gray-300 font-mono text-sm placeholder:text-gray-700 focus:border-green-500/40 focus:ring-green-500/20"
-                  />
-                </div>
-                <div>
-                  <label className="font-mono text-[10px] text-green-500/40 tracking-wider uppercase mb-2 block">Message *</label>
-                  <Textarea
-                    value={formData.message}
-                    onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
-                    placeholder="Tell me about your project..."
-                    rows={6}
-                    className="bg-black/40 border-gray-800 text-gray-300 font-mono text-sm placeholder:text-gray-700 focus:border-green-500/40 focus:ring-green-500/20 resize-none"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={sending}
-                  className="flex items-center gap-2 px-6 py-3 font-mono text-sm tracking-wider border border-green-500/40 text-green-400 hover:bg-green-500/10 transition-all duration-300 disabled:opacity-50"
-                >
-                  {sending ? (
-                    <>
-                      <div className="w-4 h-4 border-2 border-green-400/30 border-t-green-400 rounded-full animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4" />
-                      Send Message
-                    </>
-                  )}
-                </button>
-              </form>
-            )}
+          {/* Right: Terminal */}
+          <div>
+            <div className="border border-gray-800/40 bg-black/30 p-6 font-mono text-[11px] h-full">
+              <div className="text-green-500/50 mb-1">$ whoami</div>
+              <div className="text-gray-400 mb-3">{profileData.name.toLowerCase().replace(' ', '.')}</div>
+              <div className="text-green-500/50 mb-1">$ cat status.txt</div>
+              <div className="text-gray-400 mb-3">Available for freelance & consulting</div>
+              <div className="text-green-500/50 mb-1">$ cat skills.txt</div>
+              <div className="text-gray-400 mb-3">Python, SQL, Data Pipelines, ML, APIs</div>
+              <div className="text-green-500/50 mb-1">$ echo $RESPONSE_TIME</div>
+              <div className="text-gray-400 mb-3">{'<'} 24 hours</div>
+              <div className="text-green-500/50">$ _<span className="animate-pulse">|</span></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Connect — centered, no Twitter, added Mail and Phone */}
+        <div className="text-center">
+          <div className="h-px bg-gray-800/50 mb-8" />
+          <div className="font-mono text-[10px] text-green-500/40 tracking-wider uppercase mb-4">Connect</div>
+          <div className="flex items-center justify-center gap-6">
+            <a href={profileData.social.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors">
+              <Github className="w-4 h-4" />
+              <span className="font-mono text-xs">GitHub</span>
+            </a>
+            <a href={profileData.social.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors">
+              <Linkedin className="w-4 h-4" />
+              <span className="font-mono text-xs">LinkedIn</span>
+            </a>
+            <a href={`mailto:${profileData.email}`} className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors">
+              <Mail className="w-4 h-4" />
+              <span className="font-mono text-xs">Mail</span>
+            </a>
+            <a href={`tel:${profileData.phone.replace(/\s/g, '')}`} className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors">
+              <Phone className="w-4 h-4" />
+              <span className="font-mono text-xs">Phone</span>
+            </a>
           </div>
         </div>
       </div>
