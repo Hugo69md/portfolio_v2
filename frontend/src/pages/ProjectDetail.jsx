@@ -121,14 +121,14 @@ const ProjectDetail = () => {
           {/* 01 — Context */}
           <section>
             <div className="flex items-center gap-3 mb-5">
+              <span className="font-mono text-sm text-gray-500 tracking-[0.3em] uppercase">Context</span>
+              <div className="h-px flex-1 bg-gray-800/50" />
               <span
                 className="font-mono text-xs tracking-widest"
                 style={{ color: '#4db9eb' }}
               >
                 01
               </span>
-              <div className="h-px flex-1 bg-gray-800/50" />
-              <span className="font-mono text-[10px] text-gray-500 tracking-[0.3em] uppercase">Context</span>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed max-w-3xl">
               {project.context}
@@ -138,14 +138,14 @@ const ProjectDetail = () => {
           {/* 02 — The Project */}
           <section>
             <div className="flex items-center gap-3 mb-5">
+              <span className="font-mono text-sm text-gray-500 tracking-[0.3em] uppercase">The Project</span>
+              <div className="h-px flex-1 bg-gray-800/50" />
               <span
                 className="font-mono text-xs tracking-widest"
                 style={{ color: '#4db9eb' }}
               >
                 02
               </span>
-              <div className="h-px flex-1 bg-gray-800/50" />
-              <span className="font-mono text-[10px] text-gray-500 tracking-[0.3em] uppercase">The Project</span>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed max-w-3xl mb-6">
               {project.projectDetail}
@@ -177,14 +177,14 @@ const ProjectDetail = () => {
           {/* 03 — Results */}
           <section>
             <div className="flex items-center gap-3 mb-5">
+              <span className="font-mono text-sm text-gray-500 tracking-[0.3em] uppercase">Results</span>
+              <div className="h-px flex-1 bg-gray-800/50" />
               <span
                 className="font-mono text-xs tracking-widest"
                 style={{ color: '#4db9eb' }}
               >
                 03
               </span>
-              <div className="h-px flex-1 bg-gray-800/50" />
-              <span className="font-mono text-[10px] text-gray-500 tracking-[0.3em] uppercase">Results</span>
             </div>
             <p className="text-sm text-green-400/80 leading-relaxed max-w-3xl">
               {project.results}
@@ -197,7 +197,7 @@ const ProjectDetail = () => {
         <div className="mt-20 pt-8 border-t border-gray-800/40 flex items-center justify-between">
           {prevProject ? (
             <button
-              onClick={() => navigate(`/project/${prevProject.id}`)}
+              onClick={() => { window.scrollTo(0, 0); navigate(`/project/${prevProject.id}`); }}
               className="group flex items-center gap-2 font-mono text-xs text-gray-600 hover:text-green-400 transition-colors"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
@@ -207,7 +207,7 @@ const ProjectDetail = () => {
 
           {nextProject ? (
             <button
-              onClick={() => navigate(`/project/${nextProject.id}`)}
+              onClick={() => { window.scrollTo(0, 0); navigate(`/project/${nextProject.id}`); }}
               className="group flex items-center gap-2 font-mono text-xs text-gray-600 hover:text-green-400 transition-colors"
             >
               <span className="max-w-[200px] truncate">{nextProject.title}</span>
