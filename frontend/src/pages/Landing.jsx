@@ -364,7 +364,7 @@ const Landing = () => {
             return (
               <button
                 key={project.id}
-                onClick={() => navigate(`/projects?category=${(project.categories || [])[0]}`)}
+                onClick={() => navigate(`/project/${project.id}`)}
                 className="flex-shrink-0 group flex items-start gap-3 px-4 py-3 border border-gray-800/50 hover:border-green-500/30 bg-[#0a0a0a]/60 backdrop-blur-sm transition-colors duration-300 text-left max-w-[300px]"
               >
                 <div className="flex items-center gap-1 mt-0.5 flex-shrink-0">
