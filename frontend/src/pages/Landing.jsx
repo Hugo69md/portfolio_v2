@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BarChart3, TrendingUp, Plug, FileSpreadsheet, Server, Brain, Github, Linkedin, Twitter, Mail, ArrowUpRight } from 'lucide-react';
+import { BarChart3, TrendingUp, Plug, FileSpreadsheet, Server, Brain, Github, Linkedin, Phone, Mail, ArrowUpRight } from 'lucide-react';
 import { Spider, PythonLogo } from '@/components/CustomIcons';
 import { profileData, categories, projects } from '@/data/mock';
 
@@ -403,11 +403,11 @@ const Landing = () => {
             <a href={profileData.social.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-green-400 transition-colors duration-300">
               <Linkedin className="w-4 h-4" />
             </a>
-            <a href={profileData.social.twitter} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-green-400 transition-colors duration-300">
-              <Twitter className="w-4 h-4" />
-            </a>
             <a href={`mailto:${profileData.email}`} className="text-gray-600 hover:text-green-400 transition-colors duration-300">
               <Mail className="w-4 h-4" />
+            </a>
+            <a href={`tel:${profileData.phone.replace(/\s/g, '')}`} className="text-gray-600 hover:text-green-400 transition-colors duration-300">
+              <Phone className="w-4 h-4" />
             </a>
           </div>
           <div className="font-mono text-[10px] text-gray-700">
