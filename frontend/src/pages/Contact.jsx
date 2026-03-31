@@ -63,7 +63,7 @@ const Contact = () => {
         <div className="h-px bg-gray-800/50 mb-14" />
 
         {/* Contact Info + Terminal side by side */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-14">
           {/* Left: Location, Email, Phone */}
           <div className="space-y-7">
             {/* Location */}
