@@ -21,9 +21,9 @@ const Contact = () => {
     <div className="min-h-screen bg-[#050505] text-gray-300">
       {/* Header */}
       <div className="border-b border-gray-800/50 px-8 py-6">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-6 max-w-5xl mx-auto">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/')
             className="flex items-center gap-2 text-sm font-mono text-gray-500 hover:text-green-400 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" /> Back
