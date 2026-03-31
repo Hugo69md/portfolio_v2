@@ -79,6 +79,7 @@ const Projects = () => {
     <div className="min-h-screen bg-[#050505] text-gray-300">
       {/* Header */}
       <div className="border-b border-gray-800/50 px-8 py-6">
+        <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={() => navigate('/')}
@@ -117,11 +118,12 @@ const Projects = () => {
           {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''}
           {activeFilter !== 'all' ? ` in ${categories.find(c => c.id === activeFilter)?.name}` : ''}
         </p>
+        </div>
       </div>
 
       {/* Filters */}
       <div className="px-8 py-4 border-b border-gray-800/30">
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
+        <div className="max-w-6xl mx-auto flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
           <Filter className="w-3.5 h-3.5 text-gray-600 flex-shrink-0" />
           <button
             onClick={() => setActiveFilter('all')}
@@ -157,7 +159,7 @@ const Projects = () => {
 
       {/* Projects Grid */}
       <div className="px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredProjects.map((project, idx) => (
             <ProjectCard key={project.id} project={project} index={idx} onClick={() => { window.scrollTo(0, 0); navigate(`/project/${project.id}`); }} />
           ))}
