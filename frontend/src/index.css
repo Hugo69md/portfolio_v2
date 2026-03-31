@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&family=Press+Start+2P&display=swap');
 
 html {
-  font-size: 14px; /* Scale down to match Emergent's sandboxed viewport */
+  font-size: 16px;
 }
 
 @tailwind base;
