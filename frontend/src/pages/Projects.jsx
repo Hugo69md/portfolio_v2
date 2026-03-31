@@ -159,7 +159,7 @@ const Projects = () => {
       <div className="px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredProjects.map((project, idx) => (
-            <ProjectCard key={project.id} project={project} index={idx} onClick={() => navigate(`/project/${project.id}`)} />
+            <ProjectCard key={project.id} project={project} index={idx} onClick={() => { window.scrollTo(0, 0); navigate(`/project/${project.id}`); }} />
           ))}
         </div>
         {filteredProjects.length === 0 && (
