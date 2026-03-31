@@ -262,7 +262,7 @@ const Landing = () => {
           className="text-7xl md:text-8xl lg:text-[10rem] tracking-tight leading-none uppercase"
           style={{
             fontFamily: "'Alte Haas Grotesk Bold', 'Arial Black', sans-serif",
-            fontWeight: 900,
+            fontWeight: 800,
             color: '#e5e5e5',
             textShadow: '0 0 40px rgba(34, 197, 94, 0.08)'
           }}
