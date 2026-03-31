@@ -8,12 +8,13 @@ const ICON_MAP = {
   BarChart3, TrendingUp, Plug, FileSpreadsheet, Server, Brain, Spider, PythonLogo
 };
 
-const ProjectCard = ({ project, index }) => {
+const ProjectCard = ({ project, index, onClick }) => {
   const projectCats = (project.categories || []).map(catId => categories.find(c => c.id === catId)).filter(Boolean);
 
   return (
     <div
-      className="group border border-gray-800/60 bg-black/40 backdrop-blur-sm hover:border-green-500/30 transition-all duration-500"
+      onClick={onClick}
+      className="group border border-gray-800/60 bg-black/40 backdrop-blur-sm hover:border-green-500/30 transition-all duration-500 cursor-pointer"
       style={{ animationDelay: `${index * 80}ms` }}
     >
       {/* Header — show all category icons */}
@@ -55,7 +56,7 @@ const ProjectCard = ({ project, index }) => {
           <span className="text-[10px] font-mono text-green-500/50 tracking-wider uppercase">Featured</span>
         )}
         {!project.featured && <span />}
-        <button className="flex items-center gap-1.5 text-[10px] font-mono text-gray-600 hover:text-green-400 transition-colors">
+        <button className="flex items-center gap-1.5 text-[10px] font-mono text-gray-600 group-hover:text-green-400 transition-colors">
           View Details <ExternalLink className="w-3 h-3" />
         </button>
       </div>
@@ -158,7 +159,7 @@ const Projects = () => {
       <div className="px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredProjects.map((project, idx) => (
-            <ProjectCard key={project.id} project={project} index={idx} />
+            <ProjectCard key={project.id} project={project} index={idx} onClick={() => navigate(`/project/${project.id}`)} />
           ))}
         </div>
         {filteredProjects.length === 0 && (

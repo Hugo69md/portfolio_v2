@@ -83,7 +83,11 @@ export const projects = [
     tags: ["Tableau", "Python", "PostgreSQL", "Airflow"],
     year: 2024,
     link: "#",
-    featured: true
+    featured: true,
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+    context: "A retail group operating across 12 regions needed centralized visibility into $50M+ in annual sales. Existing reports were static Excel files delivered weekly, causing delayed decision-making.",
+    projectDetail: "Built an interactive Tableau dashboard connected to a PostgreSQL warehouse, refreshed every 15 minutes via Airflow pipelines. Implemented drill-down by region, product, and time period with automated Slack alerts for KPI deviations.",
+    results: "Reduced reporting lag from 7 days to 15 minutes. Enabled regional managers to self-serve analytics, cutting ad-hoc data requests by 60%."
   },
   {
     id: "proj2",
@@ -94,7 +98,11 @@ export const projects = [
     tags: ["Python", "SciPy", "Pandas", "Jupyter"],
     year: 2024,
     link: "#",
-    featured: true
+    featured: true,
+    image: "https://images.unsplash.com/photo-1584291527908-033f4d6542c8?w=800&q=80",
+    context: "Marketing team was running experiments without statistical rigor, leading to premature conclusions and wasted budget on ineffective campaigns.",
+    projectDetail: "Developed a Python framework with SciPy and Pandas that automates sample size calculation, runs t-tests and chi-square tests, and generates Bayesian posterior distributions for conversion rate experiments.",
+    results: "Reduced false-positive experiment conclusions by 40%. Framework adopted by 3 product teams running 15+ experiments monthly."
   },
   {
     id: "proj3",
@@ -105,7 +113,11 @@ export const projects = [
     tags: ["Scrapy", "Selenium", "Redis", "MongoDB"],
     year: 2023,
     link: "#",
-    featured: true
+    featured: true,
+    image: "https://images.unsplash.com/photo-1579226905180-636b76d96082?w=800&q=80",
+    context: "A comparison shopping startup needed real-time pricing data across 15 e-commerce platforms to power their recommendation engine.",
+    projectDetail: "Built a distributed Scrapy cluster with Selenium fallback for JS-rendered pages. Used Redis for task queuing and proxy rotation, storing 100K+ product prices in MongoDB with change-detection triggers.",
+    results: "Achieved 98.5% scraping success rate. Price data freshness improved from 24h to 2h, increasing user engagement on the platform by 35%."
   },
   {
     id: "proj4",
@@ -116,7 +128,11 @@ export const projects = [
     tags: ["FastAPI", "Redis", "Docker", "AWS"],
     year: 2024,
     link: "#",
-    featured: false
+    featured: false,
+    image: "https://images.unsplash.com/photo-1653387300291-bfa1eeb90e16?w=800&q=80",
+    context: "Internal data team needed a standardized way to expose curated datasets to downstream services without giving direct database access.",
+    projectDetail: "Designed a FastAPI service with Redis caching, token-bucket rate limiting, and OAuth2 scopes. Deployed on AWS ECS with auto-scaling. Full OpenAPI documentation generated automatically.",
+    results: "Serving 10K+ requests/min at p99 latency under 50ms. Onboarded 8 internal services in the first month."
   },
   {
     id: "proj5",
@@ -127,7 +143,11 @@ export const projects = [
     tags: ["Python", "openpyxl", "VBA", "Outlook"],
     year: 2023,
     link: "#",
-    featured: false
+    featured: false,
+    image: "https://images.pexels.com/photos/4021266/pexels-photo-4021266.jpeg?w=800",
+    context: "Finance team spent 3 days each month manually assembling reports from multiple data sources into branded Excel templates.",
+    projectDetail: "Created a Python pipeline using openpyxl that pulls data from 5 sources, applies business logic, populates branded Excel templates, and distributes via Outlook automation.",
+    results: "Report generation reduced from 3 days to 15 minutes. Eliminated manual copy-paste errors that previously caused quarterly restatements."
   },
   {
     id: "proj6",
@@ -138,7 +158,11 @@ export const projects = [
     tags: ["Airflow", "dbt", "GitHub Actions", "Terraform"],
     year: 2024,
     link: "#",
-    featured: true
+    featured: true,
+    image: "https://images.unsplash.com/photo-1653387141060-9a9834f47777?w=800&q=80",
+    context: "Data pipeline changes were deployed manually, causing frequent production incidents and hours of downtime when schema changes broke downstream consumers.",
+    projectDetail: "Implemented CI/CD for data pipelines using GitHub Actions, dbt for transformations, and Terraform for infrastructure. Added automated schema validation, data quality tests, and one-click rollback.",
+    results: "Zero unplanned downtime in 6 months. Deployment frequency increased from bi-weekly to daily. Processing 50M+ records with 99.9% reliability."
   },
   {
     id: "proj7",
@@ -149,7 +173,11 @@ export const projects = [
     tags: ["Python", "Transformers", "scikit-learn", "FastAPI"],
     year: 2024,
     link: "#",
-    featured: false
+    featured: false,
+    image: "https://images.unsplash.com/photo-1653387137517-fbc54d488ed8?w=800&q=80",
+    context: "Customer support team manually routed 5,000+ tickets daily across 25 categories. Misrouting caused 30% of tickets to require reassignment.",
+    projectDetail: "Fine-tuned a DistilBERT model on 50K labeled support tickets. Built a FastAPI inference service with confidence thresholds — low-confidence tickets route to human review.",
+    results: "91% classification accuracy. Reduced average ticket routing time from 4 hours to under 10 seconds. Misrouting dropped to 8%."
   },
   {
     id: "proj8",
@@ -160,7 +188,11 @@ export const projects = [
     tags: ["XGBoost", "Python", "Snowflake", "Tableau"],
     year: 2023,
     link: "#",
-    featured: true
+    featured: true,
+    image: "https://images.unsplash.com/photo-1584291527935-456e8e2dd734?w=800&q=80",
+    context: "A SaaS company was losing 8% of customers monthly with no early warning system. Retention campaigns were reactive, triggered only after cancellation.",
+    projectDetail: "Trained an XGBoost model on 200+ behavioral features from Snowflake. Scores run daily, pushing at-risk customers into automated CRM retention workflows. Built a Tableau dashboard for the CS team.",
+    results: "94% AUC-ROC. Proactive retention campaigns reduced monthly churn from 8% to 5.2%, saving an estimated $1.2M annually."
   },
   {
     id: "proj9",
@@ -171,7 +203,11 @@ export const projects = [
     tags: ["Mapbox", "D3.js", "Python", "PostGIS"],
     year: 2023,
     link: "#",
-    featured: false
+    featured: false,
+    image: "https://images.pexels.com/photos/3970331/pexels-photo-3970331.jpeg?w=800",
+    context: "A logistics company needed to visualize delivery coverage gaps and optimize warehouse placement across a metropolitan area.",
+    projectDetail: "Built a Mapbox-powered platform with PostGIS backend. Renders delivery routes, Voronoi coverage zones, and demand heatmaps from real-time GPS feeds processed through a Python geospatial pipeline.",
+    results: "Identified 3 coverage gaps leading to new warehouse placement. Average delivery time reduced by 18%."
   },
   {
     id: "proj10",
@@ -182,7 +218,11 @@ export const projects = [
     tags: ["Prophet", "TensorFlow", "FastAPI", "Docker"],
     year: 2024,
     link: "#",
-    featured: true
+    featured: true,
+    image: "https://images.pexels.com/photos/31343288/pexels-photo-31343288.jpeg?w=800",
+    context: "Supply chain team relied on manual demand estimates, leading to frequent stockouts and overstock costing $500K+ annually.",
+    projectDetail: "Developed an ensemble of Prophet (seasonal) and LSTM (trend) models served via FastAPI. Returns point forecasts with 80/95% confidence intervals. Containerized with Docker for horizontal scaling.",
+    results: "Forecast accuracy improved by 28% over manual estimates. Stockout incidents reduced by 45%, saving $320K in the first year."
   },
   {
     id: "proj11",
@@ -193,7 +233,11 @@ export const projects = [
     tags: ["BeautifulSoup", "NLTK", "Kafka", "Elasticsearch"],
     year: 2023,
     link: "#",
-    featured: false
+    featured: false,
+    image: "https://images.pexels.com/photos/5050305/pexels-photo-5050305.jpeg?w=800",
+    context: "Brand team had no real-time visibility into public sentiment, only discovering PR issues after they went viral.",
+    projectDetail: "Built a streaming pipeline scraping Twitter, Reddit, and 50 news sources via BeautifulSoup. Messages flow through Kafka into an NLTK sentiment classifier, indexed in Elasticsearch with Kibana dashboards.",
+    results: "Detected brand-threatening sentiment spikes 4 hours before they reached mainstream media. Enabled proactive PR response saving 2 potential crises."
   },
   {
     id: "proj12",
@@ -204,7 +248,11 @@ export const projects = [
     tags: ["PyMC3", "Python", "PostgreSQL", "Redis"],
     year: 2024,
     link: "#",
-    featured: false
+    featured: false,
+    image: "https://images.pexels.com/photos/17489151/pexels-photo-17489151.jpeg?w=800",
+    context: "Pricing team set prices manually based on gut feel. No systematic way to test price elasticity without risking revenue.",
+    projectDetail: "Implemented a Bayesian optimization loop with PyMC3 that automatically tests price points using Thompson sampling. Posterior distributions update daily, converging on revenue-optimal prices within 2-week cycles.",
+    results: "Average revenue per transaction increased by 12%. Price testing cycles reduced from months of manual A/B tests to automated 2-week convergence."
   }
 ];
 
