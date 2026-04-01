@@ -259,7 +259,7 @@ const Landing = () => {
       {/* Main Title */}
       <div className="relative z-10 text-center mt-2 mb-1">
         <h1
-          className="text-7xl md:text-8xl lg:text-[10rem] tracking-tight leading-none uppercase"
+          className="text-6xl md:text-7xl lg:text-[8rem] tracking-tight leading-none uppercase"
           style={{
             fontFamily: "'Alte Haas Grotesk Bold', 'Arial Black', sans-serif",
             fontWeight: 800,

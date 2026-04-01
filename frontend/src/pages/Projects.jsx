@@ -105,7 +105,7 @@ const Projects = () => {
         </div>
 
         <h1
-          className="text-4xl md:text-5xl tracking-tight mb-2"
+          className="text-3xl md:text-4xl tracking-tight mb-2"
           style={{
             fontFamily: "'Alte Haas Grotesk Bold', 'Arial Black', sans-serif",
             fontWeight: 900,
