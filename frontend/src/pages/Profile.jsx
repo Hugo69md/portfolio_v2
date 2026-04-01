@@ -10,7 +10,7 @@ const Profile = () => {
     <div className="min-h-screen bg-[#050505] text-gray-300">
       {/* Header */}
       <div className="border-b border-gray-800/50 px-8 py-6">
-        <div className="flex items-center justify-between mb-6 max-w-6xl mx-auto">
+        <div className="flex items-center justify-between mb-6 max-w-5xl mx-auto">
           <button
             onClick={() => navigate('/')}
             className="flex items-center gap-2 text-sm font-mono text-gray-500 hover:text-green-400 transition-colors"
@@ -35,7 +35,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-8 py-12">
+      <div className="max-w-5xl mx-auto px-8 py-12">
         {/* Profile Header */}
         <div className="mb-16">
           <h1
