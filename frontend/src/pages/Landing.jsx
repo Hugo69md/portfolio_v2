@@ -222,7 +222,7 @@ const Landing = () => {
 
   return (
     <div
-      className="relative min-h-screen bg-[#050505] overflow-hidden flex flex-col max-w-5xl mx-auto"
+      className="relative min-h-screen bg-[#050505] overflow-hidden flex flex-col max-w-6xl mx-auto"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
