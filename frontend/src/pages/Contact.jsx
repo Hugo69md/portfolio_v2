@@ -18,10 +18,10 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300">
+    <div className="min-h-screen bg-[#050505] text-gray-300 max-w-6xl mx-auto">
       {/* Header */}
       <div className="border-b border-gray-800/50 px-8 py-6">
-        <div className="max-w-5xl mx-auto flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-6">
           <button
             onClick={() => navigate('/')}
             className="flex items-center gap-2 text-sm font-mono text-gray-500 hover:text-green-400 transition-colors"
@@ -46,7 +46,7 @@ const Contact = () => {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-8 py-12">
+      <div className="px-8 py-12">
         <h1
           className="text-4xl md:text-5xl tracking-tight mb-3"
           style={{
