@@ -38,7 +38,7 @@ const ProjectDetail = () => {
   const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300 max-w-6xl mx-auto">
+    <div className="min-h-screen bg-[#050505] text-gray-300 max-w-4xl mx-auto">
 
       {/* Header */}
       <div className="border-b border-gray-800/50 px-8 py-6">
