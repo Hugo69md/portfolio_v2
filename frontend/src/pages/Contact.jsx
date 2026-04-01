@@ -46,9 +46,9 @@ const Contact = () => {
         </div>
       </div>
 
-      <div className="px-8 py-12">
+      <div className="px-8 py-8">
         <h1
-          className="text-4xl md:text-5xl tracking-tight mb-3"
+          className="text-3xl md:text-4xl tracking-tight mb-3"
           style={{
             fontFamily: "'Alte Haas Grotesk Bold', 'Arial Black', sans-serif",
             fontWeight: 900,
@@ -57,13 +57,13 @@ const Contact = () => {
         >
           Get in Touch
         </h1>
-        <p className="font-mono text-base text-gray-500 tracking-[0.3em] uppercase mb-4 leading-relaxed">
+        <p className="font-mono text-sm text-gray-500 tracking-[0.3em] uppercase mb-4 leading-relaxed">
           Have a project in mind? Let's discuss how data can drive your decisions.
         </p>
-        <div className="h-px bg-gray-800/50 mb-14" />
+        <div className="h-px bg-gray-800/50 mb-10" />
 
         {/* Contact Info + Terminal side by side */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-10">
           {/* Left: Location, Email, Phone */}
           <div className="space-y-7">
             {/* Location */}
