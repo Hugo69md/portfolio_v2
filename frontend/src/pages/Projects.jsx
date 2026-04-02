@@ -76,10 +76,9 @@ const Projects = () => {
   }, [activeFilter]);
 
   return (
-    <div className="min-h-screen bg-black">
-    <div className="min-h-screen bg-[#050505] text-gray-300 max-w-4xl mx-auto">
-      {/* Header */}
-      <div className="border-b border-gray-800/50 px-8 py-6">
+    <div className="min-h-screen bg-[#050505] text-gray-300">
+      {/* Header - wide */}
+      <div className="max-w-6xl mx-auto border-b border-gray-800/50 px-8 py-6">
         <div>
         <div className="flex items-center justify-between mb-6">
           <button
@@ -121,6 +120,9 @@ const Projects = () => {
         </p>
         </div>
       </div>
+
+      {/* Filters + grid content - narrower */}
+      <div className="max-w-5xl mx-auto">
 
       {/* Filters */}
       <div className="px-8 py-4 border-b border-gray-800/30">
@@ -177,7 +179,7 @@ const Projects = () => {
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
         .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
       `}</style>
-    </div>
+      </div>
     </div>
   );
 };
