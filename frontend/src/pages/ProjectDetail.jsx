@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, BarChart3, TrendingUp, Plug, FileSpreadsheet, Server, Brain, Calendar, Tag } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BarChart3, TrendingUp, Plug, FileSpreadsheet, Server, Brain, Calendar, Tag, ExternalLink, Database, Shuffle } from 'lucide-react';
 import { Spider, PythonLogo } from '@/components/CustomIcons';
 import { projects, categories } from '@/data/mock';
 
 const ICON_MAP = {
-  BarChart3, TrendingUp, Plug, FileSpreadsheet, Server, Brain, Spider, PythonLogo
+  BarChart3, TrendingUp, Plug, FileSpreadsheet, Server, Brain, Spider, PythonLogo, Database, Shuffle
 };
 
 const ProjectDetail = () => {
@@ -99,23 +99,61 @@ const ProjectDetail = () => {
             {project.title}
           </h1>
 
-          <div className="flex items-center gap-4 flex-wrap">
+          <div className="flex items-center gap-4 flex-wrap mb-4">
             <div className="flex items-center gap-1.5 text-gray-600">
               <Calendar className="w-3.5 h-3.5" />
               <span className="font-mono text-xs">{project.year}</span>
             </div>
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <Tag className="w-3.5 h-3.5 text-gray-600" />
-              {project.tags.map(tag => (
-                <span key={tag} className="font-mono text-[10px] text-gray-500 px-2 py-0.5 border border-gray-800/40 bg-gray-900/20">
-                  {tag}
-                </span>
+            {project.tags?.length > 0 && (
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <Tag className="w-3.5 h-3.5 text-gray-600" />
+                {project.tags.map(tag => (
+                  <span key={tag} className="font-mono text-[10px] text-gray-500 px-2 py-0.5 border border-gray-800/40 bg-gray-900/20">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* GitHub Links */}
+          {project.githubLinks && project.githubLinks.length > 0 && (
+            <div className="flex items-center gap-3 flex-wrap">
+              {project.githubLinks.map((url, idx) => (
+                <a
+                  key={idx}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 font-mono text-xs text-green-400/70 hover:text-green-400 border border-green-500/20 hover:border-green-500/50 px-3 py-1.5 transition-colors"
+                >
+                  <ExternalLink className="w-3 h-3" />
+                  {url.replace('https://github.com/', '')}
+                </a>
               ))}
             </div>
-          </div>
+          )}
         </div>
 
-        {/* ── 3 Sections ── */}
+        {/* ── Under Construction ── */}
+        {project.underConstruction ? (
+          <div className="flex flex-col items-center justify-center py-24 border border-gray-800/40 bg-gray-900/10">
+            <div className="font-mono text-xs text-gray-600 tracking-[0.3em] uppercase mb-3">Status</div>
+            <div
+              className="text-xl tracking-tight mb-2"
+              style={{
+                fontFamily: "'Alte Haas Grotesk Bold', 'Arial Black', sans-serif",
+                fontWeight: 900,
+                color: '#d4d4d4'
+              }}
+            >
+              Portfolio under construction
+            </div>
+            <div className="font-mono text-xs text-gray-600 mt-2">Check back soon</div>
+          </div>
+        ) : (
+
+        /* ── 3 Sections ── */
         <div className="space-y-16">
 
           {/* 01 — Context */}
@@ -130,7 +168,7 @@ const ProjectDetail = () => {
                 01
               </span>
             </div>
-            <p className="text-sm text-gray-400 leading-relaxed max-w-3xl">
+            <p className="text-sm text-gray-400 leading-relaxed max-w-3xl whitespace-pre-line">
               {project.context}
             </p>
           </section>
@@ -147,31 +185,146 @@ const ProjectDetail = () => {
                 02
               </span>
             </div>
-            <p className="text-sm text-gray-400 leading-relaxed max-w-3xl mb-6">
+            <p className="text-sm text-gray-400 leading-relaxed max-w-3xl mb-6 whitespace-pre-line">
               {project.projectDetail}
             </p>
-            {/* Project Image */}
-            <div className="relative overflow-hidden border border-gray-800/40">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-64 md:h-80 object-cover"
-                style={{ filter: 'brightness(0.7) saturate(0.8)' }}
-                loading="lazy"
-              />
-              {/* Scanline overlay for digital feel */}
-              <div
-                className="absolute inset-0 pointer-events-none opacity-[0.03]"
-                style={{
-                  backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px)'
-                }}
-              />
-              {/* Bottom edge glow */}
-              <div
-                className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
-                style={{ background: 'linear-gradient(to top, #050505, transparent)' }}
-              />
-            </div>
+
+            {/* Images grid */}
+            {project.images && project.images.length > 0 && (
+              <div className="mb-4">
+                <div className={`grid gap-3 ${project.images.length >= 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'}`}>
+                  {project.images.map((img, idx) => (
+                    <div key={idx} className="relative overflow-hidden border border-gray-800/40">
+                      <img
+                        src={img.src}
+                        alt={img.alt}
+                        className="w-full object-contain"
+                        style={{ filter: 'brightness(0.9) saturate(0.9)', maxHeight: '320px' }}
+                        loading="lazy"
+                      />
+                      <div
+                        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+                        style={{
+                          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px)'
+                        }}
+                      />
+                      <div
+                        className="absolute bottom-0 left-0 right-0 h-8 pointer-events-none"
+                        style={{ background: 'linear-gradient(to top, #050505, transparent)' }}
+                      />
+                    </div>
+                  ))}
+                </div>
+                {project.imagesCaption && (
+                  <p className="text-xs text-gray-500 leading-relaxed mt-3 max-w-3xl whitespace-pre-line">
+                    {project.imagesCaption}
+                  </p>
+                )}
+              </div>
+            )}
+
+            {/* Fallback single image */}
+            {!project.images && project.image && (
+              <div className="relative overflow-hidden border border-gray-800/40">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-64 md:h-80 object-cover"
+                  style={{ filter: 'brightness(0.7) saturate(0.8)' }}
+                  loading="lazy"
+                />
+                <div
+                  className="absolute inset-0 pointer-events-none opacity-[0.03]"
+                  style={{
+                    backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px)'
+                  }}
+                />
+                <div
+                  className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
+                  style={{ background: 'linear-gradient(to top, #050505, transparent)' }}
+                />
+              </div>
+            )}
+
+            {/* Sub-sections */}
+            {project.sections && project.sections.length > 0 && (
+              <div className="mt-10 space-y-12">
+                {project.sections.map((section, sIdx) => (
+                  <div key={sIdx}>
+                    {/* Section title */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="h-px w-6 bg-green-500/30" />
+                      <span className="font-mono text-xs text-green-500/60 tracking-[0.2em] uppercase">{section.title}</span>
+                      <div className="h-px flex-1 bg-gray-800/40" />
+                    </div>
+
+                    {/* If no codeOutput: description shown before images (intro style) */}
+                    {!section.codeOutput && section.description && (
+                      <p className="text-sm text-gray-400 leading-relaxed max-w-3xl mb-5 whitespace-pre-line">
+                        {section.description}
+                      </p>
+                    )}
+
+                    {/* Section images */}
+                    {section.images && section.images.length > 0 && (
+                      <div className="mb-4">
+                        <div className={`grid gap-3 ${section.images.length >= 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'}`}>
+                          {section.images.map((img, iIdx) => (
+                            <div key={iIdx} className="relative overflow-hidden border border-gray-800/40">
+                              <img
+                                src={img.src}
+                                alt={img.alt}
+                                className="w-full object-contain"
+                                style={{ filter: 'brightness(0.9) saturate(0.9)', maxHeight: '320px' }}
+                                loading="lazy"
+                              />
+                              <div
+                                className="absolute inset-0 pointer-events-none opacity-[0.03]"
+                                style={{
+                                  backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px)'
+                                }}
+                              />
+                              <div
+                                className="absolute bottom-0 left-0 right-0 h-8 pointer-events-none"
+                                style={{ background: 'linear-gradient(to top, #050505, transparent)' }}
+                              />
+                            </div>
+                          ))}
+                        </div>
+                        {section.imagesCaption && (
+                          <p className="text-xs text-gray-500 leading-relaxed mt-3 max-w-3xl whitespace-pre-line">
+                            {section.imagesCaption}
+                          </p>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Code output */}
+                    {section.codeOutput && (
+                      <div className="mb-4 border border-gray-800/40 bg-gray-900/30 overflow-x-auto">
+                        <pre className="font-mono text-[11px] text-green-400/70 p-4 leading-relaxed">
+                          {section.codeOutput}
+                        </pre>
+                      </div>
+                    )}
+
+                    {/* If codeOutput exists: description shown after code (explanation style) */}
+                    {section.codeOutput && section.description && (
+                      <p className="text-sm text-gray-400 leading-relaxed max-w-3xl mb-2 whitespace-pre-line">
+                        {section.description}
+                      </p>
+                    )}
+
+                    {/* Call to action */}
+                    {section.callToAction && (
+                      <p className="font-mono text-xs text-green-400/60 mt-3 italic">
+                        {section.callToAction}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
 
           {/* 03 — Results */}
@@ -186,12 +339,13 @@ const ProjectDetail = () => {
                 03
               </span>
             </div>
-            <p className="text-sm text-green-400/80 leading-relaxed max-w-3xl">
+            <p className="text-sm text-green-400/80 leading-relaxed max-w-3xl whitespace-pre-line">
               {project.results}
             </p>
           </section>
 
         </div>
+        )}
 
         {/* ── Navigation between projects ── */}
         <div className="mt-20 pt-8 border-t border-gray-800/40 flex items-center justify-between">
