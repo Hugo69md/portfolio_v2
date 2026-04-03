@@ -104,7 +104,7 @@ const ProjectDetail = () => {
               <Calendar className="w-3.5 h-3.5" />
               <span className="font-mono text-xs">{project.year}</span>
             </div>
-            {project.tags && project.tags.length > 0 && (
+            {project.tags?.length > 0 && (
               <div className="flex items-center gap-1.5 flex-wrap">
                 <Tag className="w-3.5 h-3.5 text-gray-600" />
                 {project.tags.map(tag => (
@@ -302,7 +302,7 @@ const ProjectDetail = () => {
                     {/* Code output */}
                     {section.codeOutput && (
                       <div className="mb-4 border border-gray-800/40 bg-gray-900/30 overflow-x-auto">
-                        <pre className="font-mono text-[11px] text-green-400/70 p-4 leading-relaxed whitespace-pre">
+                        <pre className="font-mono text-[11px] text-green-400/70 p-4 leading-relaxed">
                           {section.codeOutput}
                         </pre>
                       </div>
