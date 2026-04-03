@@ -64,11 +64,14 @@ export const profileData = {
 
 export const categories = [
   { id: "data-viz", name: "Data Visualization", icon: "BarChart3" },
-  { id: "statistics", name: "Statistics", icon: "TrendingUp" },
-  { id: "python", name: "Python", icon: "PythonLogo" },
+  { id: "statistics", name: "Predictive Models", icon: "TrendingUp" },
+  { id: "scraping", name: "Scraping", icon: "Spider" },
+  { id: "api", name: "API", icon: "Plug" },
   { id: "excel", name: "Excel", icon: "FileSpreadsheet" },
-  { id: "data-analysis", name: "Data Analysis", icon: "Database" },
-  { id: "data-transformation", name: "Data Transformation", icon: "Shuffle" }
+  { id: "automation", name: "Automation", icon: "Server" },
+  { id: "python", name: "Python", icon: "PythonLogo" },
+  { id: "predictive", name: "IA", icon: "Brain" },
+  { id: "data-pipeline", name: "Data Pipeline", icon: "PipesIcon" }
 ];
 
 export const projects = [
@@ -131,7 +134,7 @@ export const projects = [
   {
     id: "proj2",
     title: "Rupture Trend Analysis Tools",
-    categories: ["python", "excel", "data-analysis", "data-viz", "data-transformation"],
+    categories: ["python", "excel", "data-viz"],
     description: "Python and Excel tools for analyzing medicine rupture trends at a pharmaceutical company, providing visual evolution graphs and interactive yearly calendars filterable by rupture type and distribution canal.",
     shortDesc: "Python and Excel rupture analysis tools with evolution graphs and interactive yearly calendars filterable by type and distribution canal.",
     tags: ["Python", "Excel", "Data analysis", "Data transformation", "Data visualization"],
@@ -187,7 +190,7 @@ export const projects = [
   {
     id: "proj4",
     title: "Add-on for an accountant specific ERP",
-    categories: ["python", "excel", "data-analysis", "data-viz", "data-transformation"],
+    categories: ["python", "excel", "data-viz"],
     description: "Python add-on for MyUnisoft accounting ERP that analyzes accountant efficiency and client profitability, generating Excel pivot table reports with Bonus/Malus analysis and advanced filtering.",
     shortDesc: "Python add-on for MyUnisoft ERP generating Excel pivot table reports to analyze accountant efficiency and client profitability.",
     tags: ["Python", "Excel", "Data analysis", "Data visualisation", "Data transformation"],

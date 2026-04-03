@@ -1,11 +1,11 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BarChart3, TrendingUp, Plug, FileSpreadsheet, Server, Brain, Github, Linkedin, Phone, Mail, ArrowUpRight, Database, Shuffle } from 'lucide-react';
-import { Spider, PythonLogo } from '@/components/CustomIcons';
+import { BarChart3, TrendingUp, Plug, FileSpreadsheet, Server, Brain, Github, Linkedin, Phone, Mail, ArrowUpRight } from 'lucide-react';
+import { Spider, PythonLogo, PipesIcon } from '@/components/CustomIcons';
 import { profileData, categories, projects } from '@/data/mock';
 
 const ICON_MAP = {
-  BarChart3, TrendingUp, Plug, FileSpreadsheet, Server, Brain, Spider, PythonLogo, Database, Shuffle
+  BarChart3, TrendingUp, Plug, FileSpreadsheet, Server, Brain, Spider, PythonLogo, PipesIcon
 };
 
 // ─── Neural Network Canvas (Full-page background) ───────────────────────

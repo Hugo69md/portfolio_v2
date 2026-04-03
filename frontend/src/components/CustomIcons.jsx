@@ -51,3 +51,31 @@ export const PythonLogo = ({ className = '', ...props }) => (
     <circle cx="14.5" cy="19" r="0.8" fill="currentColor" stroke="none" />
   </svg>
 );
+
+// Pipes icon - connected pipeline segments
+export const PipesIcon = ({ className = '', ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    {...props}
+  >
+    {/* Horizontal top pipe */}
+    <path d="M3 7h8" />
+    <path d="M3 11h8" />
+    {/* Vertical connector */}
+    <path d="M11 7v10" />
+    <path d="M7 11v6" />
+    {/* Horizontal bottom pipe */}
+    <path d="M7 17h14" />
+    <path d="M11 13h10" />
+    {/* Valve/joint circles */}
+    <circle cx="11" cy="10" r="1.5" />
+    <circle cx="18" cy="15" r="1.5" />
+  </svg>
+);
