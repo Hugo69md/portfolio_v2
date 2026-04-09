@@ -1,16 +1,16 @@
 // Portfolio Data
 
 export const profileData = {
-  name: "Alex Rennard",
-  title: "Data Engineer & Analyst",
+  name: "Hugo Manipoud",
+  title: "Automation & Data Engineer",
   tagline: "Data Engineering Solutions",
-  bio: "Passionate data engineer specializing in building scalable data pipelines, predictive models, and automation systems. With 5+ years of experience transforming raw data into actionable insights, I help organizations make data-driven decisions.",
-  location: "Paris, France",
-  email: "alex.rennard@email.com",
-  phone: "+33 6 12 34 56 78",
+  bio: "Mechanical & Electrical engineer who's passionate about data and automation, i deliver simple solutions for hard problems. You'll find here some projects of mine. ",
+  location: "Lyon, France",
+  email: "Hugo69md@gmail.com",
+  phone: "+33 6 51 58 95 51",
   social: {
-    github: "https://github.com/alexrennard",
-    linkedin: "https://linkedin.com/in/alexrennard",
+    github: "https://github.com/Hugo69md",
+    linkedin: "https://www.linkedin.com/in/hugo-manipoud-8a35b91ba/",
     twitter: "https://twitter.com/alexrennard"
   },
   skills: [
@@ -28,17 +28,18 @@ export const profileData = {
   experience: [
     {
       id: "exp1",
-      role: "Senior Data Engineer",
-      company: "TechVault Analytics",
-      period: "2022 - Present",
-      description: "Leading data pipeline architecture for real-time analytics processing 50M+ events daily. Built automated ETL systems reducing manual work by 80%."
+      role: "Automation & Data Engineer",
+      company: "Ceibb Engineering",
+      period: "2025 - Present",
+      description: "Self employed data engineer specialized in automation scraping and pipelines"
     },
     {
       id: "exp2",
-      role: "Data Analyst",
-      company: "DataStream Corp",
-      period: "2020 - 2022",
-      description: "Developed predictive models for customer churn with 94% accuracy. Created interactive dashboards serving 200+ stakeholders."
+      role: "Supply chain Data Analyst intern",
+      company: "Laboratoires Arrow",
+      period: "2024 - 2024",
+      description: "Supply chain & data internship, creation of several data analysis and process automation tools within the context of assigned missions. Reducing time spent and reoccurring errors in some processes by up to 90%, Creation of several monitoring tools using Python / Excel, In-depth work on shortage patterns and warehouse (WH) non-conformities.
+"
     },
     {
       id: "exp3",
@@ -50,14 +51,14 @@ export const profileData = {
   ],
   education: [
     {
-      degree: "M.Sc. Data Science",
-      school: "École Polytechnique",
-      year: "2018"
+      degree: "M.Sc. Engineering Project Management",
+      school: "Auckland University of Technology",
+      year: "2027"
     },
     {
-      degree: "B.Sc. Computer Science",
-      school: "Université Paris-Saclay",
-      year: "2016"
+      degree: "M.Sc. Electrical & Mechanical Engineering",
+      school: "ECAM lyon",
+      year: "2026"
     }
   ]
 };
