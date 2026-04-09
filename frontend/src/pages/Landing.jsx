@@ -241,7 +241,7 @@ const Landing = () => {
       {/* Navigation */}
       <nav className="relative z-10 flex items-center justify-between px-8 py-5">
         <div className="font-mono text-xs text-green-500/50 tracking-widest uppercase">
-          Portfolio_v2.4
+          Ceibb Engineering
         </div>
         <div className="flex gap-1">
           {['Profile', 'Projects', 'Contact'].map((item) => (
@@ -411,7 +411,7 @@ const Landing = () => {
             </a>
           </div>
           <div className="font-mono text-[10px] text-gray-700">
-            &copy; {new Date().getFullYear()} // Built with data
+            &copy; {new Date().getFullYear()} // Future is automation
           </div>
         </div>
       </footer>
