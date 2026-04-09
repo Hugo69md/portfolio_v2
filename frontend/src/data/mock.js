@@ -40,13 +40,6 @@ export const profileData = {
       period: "2024 - 2024",
       description: "Supply chain & data internship, creation of several data analysis and process automation tools within the context of assigned missions. Reducing time spent and reoccurring errors in some processes by up to 90%, Creation of several monitoring tools using Python / Excel, In-depth work on shortage patterns and warehouse (WH) non-conformities.
 "
-    },
-    {
-      id: "exp3",
-      role: "Junior Data Scientist",
-      company: "InnoMetrics Lab",
-      period: "2018 - 2020",
-      description: "Built web scraping pipelines collecting 1M+ data points weekly. Implemented statistical analysis frameworks for A/B testing."
     }
   ],
   education: [
