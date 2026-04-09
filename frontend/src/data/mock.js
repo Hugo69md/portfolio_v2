@@ -38,8 +38,7 @@ export const profileData = {
       role: "Supply chain Data Analyst intern",
       company: "Laboratoires Arrow",
       period: "2024 - 2024",
-      description: "Supply chain & data internship, creation of several data analysis and process automation tools within the context of assigned missions. Reducing time spent and reoccurring errors in some processes by up to 90%, Creation of several monitoring tools using Python / Excel, In-depth work on shortage patterns and warehouse (WH) non-conformities.
-"
+      description: "Supply chain & data internship, creation of several data analysis and process automation tools within the context of assigned missions. Reducing time spent and reoccurring errors in some processes by up to 90%, Creation of several monitoring tools using Python / Excel, In-depth work on shortage patterns and warehouse (WH) non-conformities."
     }
   ],
   education: [
