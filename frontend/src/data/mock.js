@@ -38,7 +38,7 @@ export const profileData = {
       role: "Supply chain Data Analyst intern",
       company: "Laboratoires Arrow",
       period: "2024 - 2024",
-      description: "Supply chain & data internship, creation of several data analysis and process automation tools within the context of assigned missions. Reducing time spent and reoccurring errors in some processes by up to 90%, Creation of several monitoring tools using Python / Excel, In-depth work on shortage patterns and warehouse (WH) non-conformities."
+      description: "Supply chain & data internship, creation of several data analysis and process automation tools within the context of assigned missions. Reducing time spent and reoccurring errors in specific tasks."
     }
   ],
   education: [
@@ -221,19 +221,48 @@ export const projects = [
   },
   {
     id: "proj5",
-    title: "Anonymization of dataset to ensure security while using LLMS",
-    categories: [],
-    description: "Portfolio under construction.",
-    shortDesc: "Portfolio under construction.",
-    tags: [],
+    title: "Jobot",
+    categories: ["scraping", "python", "automation", "api", "data-pipeline", "predictive"],
+    description: "Fully automated end-to-end job application pipeline built in Python. Scrapes internship offers, scores them with AI, generates tailored CVs and cover letters as PDFs, sends results via Telegram bot, and runs autonomously via GitHub Actions CI/CD.",
+    shortDesc: "Automated job application pipeline: scrapes offers, AI scoring, PDF generation, Telegram notifications, GitHub Actions CI/CD.",
+    tags: ["Python", "Scraping", "Automation", "API", "Pipeline", "AI"],
     year: 2025,
-    link: "#",
-    featured: false,
-    underConstruction: true,
-    image: null,
-    context: "",
-    projectDetail: "",
-    results: ""
+    link: "https://github.com/Hugo69md/jobot",
+    featured: true,
+    image: "https://raw.githubusercontent.com/Hugo69md/Portfolio/main/images/jobot_photos/telegram.png",
+    githubLinks: [
+      "https://github.com/Hugo69md/jobot"
+    ],
+    context: "As a 5th year engineering student actively searching for an end-of-studies internship in Data and Supply Chain, I was spending a significant amount of time every day on repetitive job-hunting tasks: browsing platforms, reading through dozens of offers, writing tailored CVs and cover letters for each one, and tracking which applications I had already sent.\n\nI needed a solution that could:\n- Automatically scrape internship offers from job platforms on a daily basis, without any manual intervention.\n- Intelligently score and rank each offer against my profile using AI, so I could focus only on the most relevant opportunities.\n- Generate tailored CVs and cover letters as ready-to-send PDFs, with experience descriptions and skills sections dynamically adapted to each specific offer.\n- Notify me in real time via a mobile interface, allowing me to review each offer and approve or reject applications on the go.\n- Run entirely autonomously in the cloud on a schedule, requiring zero daily effort from me.",
+    projectDetail: "Jobot is a fully automated, end-to-end job application pipeline built in Python. The entire system is orchestrated through a single main.py entry point that runs 5 sequential steps, each handled by a dedicated module.\n\nStep 1 — Scraping (Scrapy + Playwright): A custom Scrapy spider with Playwright (headless Chromium) scrapes internship listings from job platforms. It navigates JavaScript-heavy pages, extracts offer details (title, company, description, URL), and stores everything in a structured JSON file. A deduplication system ensures no offer is processed twice across runs.\n\nStep 2 — AI Analysis (Ollama + Qwen 3.5): The core intelligence of the project. Each scraped offer goes through a multi-step AI pipeline: domain classification (Data or Supply Chain), mission extraction, skill matching against a structured cv.json profile, scoring out of 100, and finally — for high-scoring offers — experience selection and description rewriting tailored to the specific offer.",
+    images: [
+      { src: "https://raw.githubusercontent.com/Hugo69md/Portfolio/main/images/jobot_photos/cv_json_experience.png", alt: "cv.json - experiences and personal info" },
+      { src: "https://raw.githubusercontent.com/Hugo69md/Portfolio/main/images/jobot_photos/cv_json_keywords.png", alt: "cv.json - prioritized skills taxonomy" }
+    ],
+    imagesCaption: "The cv.json file is the single source of truth for the AI. It contains all my experiences (indexed, typed by domain, with specific skills and categorization), a prioritized skills taxonomy organized into top priority, priority, and bonus tiers for both Data and Supply Chain domains, as well as my personal information.",
+    sections: [
+      {
+        title: "PDF Generation",
+        description: "Step 3 — PDF Generation (ReportLab): For each offer scoring above the threshold (80/100), the system automatically generates two professional PDF documents: a tailored CV with photo, dynamically selected experiences, rewritten descriptions, and an offer-specific skills section, as well as a personalized cover letter. Each offer gets its own subfolder with all generated files.",
+        images: [
+          { src: "https://raw.githubusercontent.com/Hugo69md/Portfolio/main/images/jobot_photos/internship_enriched.png", alt: "Example of offers_enriched.json showing AI scoring and tailored content" }
+        ],
+        imagesCaption: "Here is an example of the enriched output for a single offer. The AI has classified the offer, extracted its missions and required skills, scored it against my profile, selected the best-matching experiences, and rewritten their descriptions — all stored in a structured JSON ready for PDF generation."
+      },
+      {
+        title: "Telegram Notification",
+        description: "Step 4 — Telegram Notification (python-telegram-bot): All results are pushed to a private Telegram bot. For each offer, the bot sends the offer URL, the generated CV and cover letter as PDF documents, and an interactive summary showing the company name, offer title, and AI score out of 100. Each summary includes YES / NO inline buttons — I can review and approve or reject each application directly from my phone.",
+        images: [
+          { src: "https://raw.githubusercontent.com/Hugo69md/Portfolio/main/images/jobot_photos/telegram.png", alt: "Telegram bot interface showing offer summary with YES/NO buttons" }
+        ],
+        imagesCaption: "Here is the Telegram bot interface. Each offer is sent with its URL, the tailored CV and cover letter PDFs, and an interactive summary with YES / NO buttons for instant decision-making from my phone."
+      },
+      {
+        title: "CI/CD Automation",
+        description: "Step 5 — CI/CD Automation (GitHub Actions): The entire pipeline runs autonomously via a GitHub Actions workflow, scheduled twice daily (11:00 AM and 4:00 PM). The workflow sets up Python, installs all dependencies, pulls and caches the Ollama LLM model, runs the full pipeline, and uploads all outputs as artifacts. The model cache is persisted between runs to avoid re-downloading the ~2GB model each time."
+      }
+    ],
+    results: "The pipeline successfully processes up to 9 job offers per run, scoring and generating complete application packages in a single automated execution. The system has been running daily since deployment with minimal maintenance.\n\nThe system requires zero daily effort: it runs entirely in the cloud via GitHub Actions with no local setup needed. The AI uses structured multi-step prompt chains with strict no-hallucination rules, producing reliable and professional outputs every time."
   }
 ];
 
