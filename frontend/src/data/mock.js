@@ -127,7 +127,7 @@ export const projects = [
   {
     id: "proj2",
     title: "Rupture Trend Analysis Tools",
-    categories: ["python", "excel", "data-viz"],
+    categories: ["python", "excel", "data-viz, data-pipeline"],
     description: "Python and Excel tools for analyzing medicine rupture trends at a pharmaceutical company, providing visual evolution graphs and interactive yearly calendars filterable by rupture type and distribution canal.",
     shortDesc: "Python and Excel rupture analysis tools with evolution graphs and interactive yearly calendars filterable by type and distribution canal.",
     tags: ["Python", "Excel", "Data analysis", "Data transformation", "Data visualization"],
@@ -183,7 +183,7 @@ export const projects = [
   {
     id: "proj4",
     title: "Add-on for an accountant specific ERP",
-    categories: ["python", "excel", "data-viz"],
+    categories: ["python", "excel", "data-viz", "data-pipeline", "api"],
     description: "Python add-on for MyUnisoft accounting ERP that analyzes accountant efficiency and client profitability, generating Excel pivot table reports with Bonus/Malus analysis and advanced filtering.",
     shortDesc: "Python add-on for MyUnisoft ERP generating Excel pivot table reports to analyze accountant efficiency and client profitability.",
     tags: ["Python", "Excel", "Data analysis", "Data visualisation", "Data transformation"],
