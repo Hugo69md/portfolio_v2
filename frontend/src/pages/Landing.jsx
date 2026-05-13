@@ -222,7 +222,7 @@ const Landing = () => {
 
   return (
     <div
-      className="relative min-h-screen bg-[#050505] overflow-hidden flex flex-col max-w-6xl mx-auto"
+      className="relative min-h-screen bg-[#050505] overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -236,7 +236,8 @@ const Landing = () => {
         <canvas ref={canvasRef} className="absolute inset-0" />
       </div>
 
-      {/* ═══════════════ Content Layer (z-10, above canvas) ═══════════════ */}
+      {/* Content centered within full-width background */}
+      <div className="relative z-10 max-w-6xl mx-auto flex flex-col min-h-screen">
 
       {/* Navigation */}
       <nav className="relative z-10 flex items-center justify-between px-8 py-5">
@@ -421,6 +422,7 @@ const Landing = () => {
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
         .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
       `}</style>
+      </div>
     </div>
   );
 };
