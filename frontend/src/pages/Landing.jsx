@@ -237,7 +237,7 @@ const Landing = () => {
       </div>
 
       {/* Content centered within full-width background */}
-      <div className="relative z-10 max-w-6xl mx-auto flex flex-col min-h-screen">
+      <div className="relative z-10 w-full flex flex-col min-h-screen">
 
       {/* Navigation */}
       <nav className="relative z-10 flex items-center justify-between px-8 py-5">
