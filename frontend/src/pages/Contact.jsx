@@ -20,7 +20,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-[#050505] text-gray-300">
       {/* Header - wide */}
-      <div className="max-w-6xl mx-auto border-b border-gray-800/50 px-8 py-6">
+      <div className="w-full border-b border-gray-800/50 px-8 py-6">
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={() => navigate('/')}
@@ -47,7 +47,7 @@ const Contact = () => {
       </div>
 
       {/* Content - narrower */}
-      <div className="max-w-5xl mx-auto px-8 py-8">
+      <div className="w-full px-8 py-8">
         <h1
           className="text-3xl md:text-4xl tracking-tight mb-3"
           style={{

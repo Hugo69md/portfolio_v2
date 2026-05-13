@@ -78,7 +78,7 @@ const Projects = () => {
   return (
     <div className="min-h-screen bg-[#050505] text-gray-300">
       {/* Header - wide */}
-      <div className="max-w-6xl mx-auto border-b border-gray-800/50 px-8 py-6">
+      <div className="w-full border-b border-gray-800/50 px-8 py-6">
         <div>
         <div className="flex items-center justify-between mb-6">
           <button
@@ -122,7 +122,7 @@ const Projects = () => {
       </div>
 
       {/* Filters + grid content - narrower */}
-      <div className="max-w-5xl mx-auto">
+      <div className="w-full">
 
       {/* Filters */}
       <div className="px-8 py-4 border-b border-gray-800/30">
