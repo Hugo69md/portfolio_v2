@@ -68,7 +68,7 @@ const ProjectDetail = () => {
       </div>
 
       {/* Project Content - narrower */}
-      <div className="w-full px-8 py-12">
+      <div className="w-full px-8 py-12 max-w-5xl mx-auto">
 
         {/* Title Block */}
         <div className="mb-12">
@@ -168,7 +168,7 @@ const ProjectDetail = () => {
                 01
               </span>
             </div>
-            <p className="text-sm text-gray-400 leading-relaxed max-w-3xl whitespace-pre-line">
+            <p className="text-sm text-gray-400 leading-relaxed whitespace-pre-line">
               {project.context}
             </p>
           </section>
@@ -185,7 +185,7 @@ const ProjectDetail = () => {
                 02
               </span>
             </div>
-            <p className="text-sm text-gray-400 leading-relaxed max-w-3xl mb-6 whitespace-pre-line">
+            <p className="text-sm text-gray-400 leading-relaxed mb-6 whitespace-pre-line">
               {project.projectDetail}
             </p>
 
@@ -194,29 +194,18 @@ const ProjectDetail = () => {
               <div className="mb-4">
                 <div className={`grid gap-3 ${project.images.length >= 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'}`}>
                   {project.images.map((img, idx) => (
-                    <div key={idx} className="relative overflow-hidden border border-gray-800/40">
+                    <div key={idx} className="overflow-hidden border border-gray-800/40">
                       <img
                         src={img.src}
                         alt={img.alt}
                         className="w-full object-contain"
-                        style={{ filter: 'brightness(0.9) saturate(0.9)', maxHeight: '320px' }}
                         loading="lazy"
-                      />
-                      <div
-                        className="absolute inset-0 pointer-events-none opacity-[0.03]"
-                        style={{
-                          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px)'
-                        }}
-                      />
-                      <div
-                        className="absolute bottom-0 left-0 right-0 h-8 pointer-events-none"
-                        style={{ background: 'linear-gradient(to top, #050505, transparent)' }}
                       />
                     </div>
                   ))}
                 </div>
                 {project.imagesCaption && (
-                  <p className="text-xs text-gray-500 leading-relaxed mt-3 max-w-3xl whitespace-pre-line">
+                  <p className="text-xs text-gray-500 leading-relaxed mt-3 whitespace-pre-line">
                     {project.imagesCaption}
                   </p>
                 )}
@@ -225,23 +214,12 @@ const ProjectDetail = () => {
 
             {/* Fallback single image */}
             {!project.images && project.image && (
-              <div className="relative overflow-hidden border border-gray-800/40">
+              <div className="overflow-hidden border border-gray-800/40">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-64 md:h-80 object-cover"
-                  style={{ filter: 'brightness(0.7) saturate(0.8)' }}
+                  className="w-full object-contain"
                   loading="lazy"
-                />
-                <div
-                  className="absolute inset-0 pointer-events-none opacity-[0.03]"
-                  style={{
-                    backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px)'
-                  }}
-                />
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
-                  style={{ background: 'linear-gradient(to top, #050505, transparent)' }}
                 />
               </div>
             )}
@@ -260,7 +238,7 @@ const ProjectDetail = () => {
 
                     {/* If no codeOutput: description shown before images (intro style) */}
                     {!section.codeOutput && section.description && (
-                      <p className="text-sm text-gray-400 leading-relaxed max-w-3xl mb-5 whitespace-pre-line">
+                      <p className="text-sm text-gray-400 leading-relaxed mb-5 whitespace-pre-line">
                         {section.description}
                       </p>
                     )}
@@ -270,29 +248,18 @@ const ProjectDetail = () => {
                       <div className="mb-4">
                         <div className={`grid gap-3 ${section.images.length >= 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'}`}>
                           {section.images.map((img, iIdx) => (
-                            <div key={iIdx} className="relative overflow-hidden border border-gray-800/40">
+                            <div key={iIdx} className="overflow-hidden border border-gray-800/40">
                               <img
                                 src={img.src}
                                 alt={img.alt}
                                 className="w-full object-contain"
-                                style={{ filter: 'brightness(0.9) saturate(0.9)', maxHeight: '320px' }}
                                 loading="lazy"
-                              />
-                              <div
-                                className="absolute inset-0 pointer-events-none opacity-[0.03]"
-                                style={{
-                                  backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px)'
-                                }}
-                              />
-                              <div
-                                className="absolute bottom-0 left-0 right-0 h-8 pointer-events-none"
-                                style={{ background: 'linear-gradient(to top, #050505, transparent)' }}
                               />
                             </div>
                           ))}
                         </div>
                         {section.imagesCaption && (
-                          <p className="text-xs text-gray-500 leading-relaxed mt-3 max-w-3xl whitespace-pre-line">
+                          <p className="text-xs text-gray-500 leading-relaxed mt-3 whitespace-pre-line">
                             {section.imagesCaption}
                           </p>
                         )}
@@ -310,7 +277,7 @@ const ProjectDetail = () => {
 
                     {/* If codeOutput exists: description shown after code (explanation style) */}
                     {section.codeOutput && section.description && (
-                      <p className="text-sm text-gray-400 leading-relaxed max-w-3xl mb-2 whitespace-pre-line">
+                      <p className="text-sm text-gray-400 leading-relaxed mb-2 whitespace-pre-line">
                         {section.description}
                       </p>
                     )}
@@ -339,7 +306,7 @@ const ProjectDetail = () => {
                 03
               </span>
             </div>
-            <p className="text-sm text-green-400/80 leading-relaxed max-w-3xl whitespace-pre-line">
+            <p className="text-sm text-green-400/80 leading-relaxed whitespace-pre-line">
               {project.results}
             </p>
           </section>
